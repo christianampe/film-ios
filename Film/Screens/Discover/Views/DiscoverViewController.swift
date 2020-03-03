@@ -24,6 +24,10 @@ final class DiscoverViewController: UIViewController {
     
 }
 
+extension DiscoverViewController {
+    
+}
+
 extension DiscoverViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView,
                    numberOfRowsInSection section: Int) -> Int {
