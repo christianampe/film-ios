@@ -10,7 +10,19 @@ import UIKit
 
 final class DiscoverFilmView: UICollectionViewCell {
     
-    var viewModel: DiscoverFilmViewModel = .init(film: .empty)
+    private var viewModel: DiscoverFilmViewModel = .init(film: .empty)
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        style()
+        imageView.image = UIImage(named: "nflx.logo")
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        style()
+        imageView.image = UIImage(named: "nflx.logo")
+    }
     
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
@@ -28,7 +40,6 @@ final class DiscoverFilmView: UICollectionViewCell {
 
 extension DiscoverFilmView {
     func configure(withFilm film: NFLX.Film) {
-        imageView.image = UIImage(named: "nflx.logo")
         viewModel = .init(film: film)
     }
 }
@@ -37,13 +48,14 @@ extension DiscoverFilmView {
 extension DiscoverFilmView {
     override func prepareForReuse() {
         super.prepareForReuse()
-        imageView.image = nil
+//        imageView.image = nil
     }
 }
 
 // MARK: - Style Methods
 private extension DiscoverFilmView {
     func style() {
-        layer.cornerRadius = 3
+        layer.masksToBounds = true
+        layer.cornerRadius = 8
     }
 }

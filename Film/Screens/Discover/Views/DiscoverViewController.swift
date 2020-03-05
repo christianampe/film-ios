@@ -28,24 +28,6 @@ final class DiscoverViewController: UIViewController {
         viewModel.fetch()
     }
     
-    private lazy var collectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
-        view.addSubview(collectionView)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        collectionView.registerCollectionViewCell(DiscoverFilmView.self)
-        return collectionView
-    }()
-    
-    private lazy var searchBarContainerView: UIView = {
-        let searchBarContainerView = UIView()
-        searchBarContainerView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        return searchBarContainerView
-    }()
-    
     private lazy var searchBar: DiscoverSearchBar = {
         let searchBar = DiscoverSearchBar()
         searchBarContainerView.addSubview(searchBar)
@@ -58,22 +40,40 @@ final class DiscoverViewController: UIViewController {
         return searchBar
     }()
     
+    private lazy var searchBarContainerView: UIView = {
+        let searchBarContainerView = UIView()
+        searchBarContainerView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        return searchBarContainerView
+    }()
+    
+    private lazy var collectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
+        view.addSubview(collectionView)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        collectionView.registerCollectionViewCell(DiscoverFilmView.self)
+        return collectionView
+    }()
+    
     private lazy var collectionViewLayout: UICollectionViewLayout = {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.6),
-                                              heightDimension: .fractionalHeight(1.0))
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                              heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         item.contentInsets = .init(top: 10,
                                    leading: 10,
                                    bottom: 10,
                                    trailing: 10)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.85),
-                                               heightDimension: .fractionalHeight(0.4))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.4),
+                                               heightDimension: .fractionalHeight(0.36))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
                                                        subitems: [item])
         
         let section = NSCollectionLayoutSection(group: group)
-        section.orthogonalScrollingBehavior = .continuous
+        section.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary
         
         return UICollectionViewCompositionalLayout(section: section)
     }()
@@ -100,7 +100,7 @@ extension DiscoverViewController: DiscoverViewModelDelegate {
         
         DispatchQueue.main.async { [weak self] in
             self?.collectionViewDataSource.apply(snapshot,
-                                           animatingDifferences: true)
+                                                 animatingDifferences: true)
         }
     }
 }
