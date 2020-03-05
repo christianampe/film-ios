@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Combine
 
 final class DiscoverViewModel: ObservableObject {
     private var films: [NFLX.Film] {
@@ -21,21 +20,36 @@ final class DiscoverViewModel: ObservableObject {
     }
     
     deinit {
-        cancellable?.cancel()
-        cancellable = nil
+        movieTask?.cancel()
+        movieTask = nil
     }
     
-    private var cancellable: AnyCancellable?
+    weak var delegate: DiscoverViewModelDelegate?
     
-    @Published private(set) var categories: [(String, [NFLX.Film])] = []
+    private var movieTask: URLSessionDataTask?
+    
+    private(set) var categories: [(String, [NFLX.Film])] = [] {
+        didSet {
+            delegate?.discoverViewModel(self, didUpdateCategories: categories)
+        }
+    }
 }
 
 extension DiscoverViewModel {
-    func load() {
-        cancellable = Networking.run(NFLX.Service.movies.request(), [NFLX.Film].self, .snakeCase)
-            .receive(on: DispatchQueue.main)
-            .replaceError(with: [])
-            .assign(to: \.films, on: self)
+    func fetch() {
+        movieTask = Networking.object(NFLX.Service.movies.request(), [NFLX.Film].self, .snakeCase) { [weak self] result in
+            guard let self = self else {
+                return
+            }
+            
+            switch result {
+            case .success(let films):
+                self.films = films
+            case .failure(let error):
+                print(error)
+                break
+            }
+        }
     }
 }
 
@@ -46,12 +60,10 @@ private extension DiscoverViewModel {
                 return
             }
             
-            let tempDict = Dictionary(grouping: self.films, by: { $0.releaseYear })
+            let tempDict = Dictionary(grouping: self.films, by: { $0.locations })
             let categories = tempDict.sorted { $0.key < $1.key }
             
-            DispatchQueue.main.async {
-                self.categories = categories
-            }
+            self.categories = categories
         }
     }
 }

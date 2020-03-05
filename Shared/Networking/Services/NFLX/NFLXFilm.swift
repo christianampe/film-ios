@@ -9,7 +9,7 @@
 import Foundation
 
 extension NFLX {
-    struct Film: Decodable, Identifiable {
+    struct Film: Decodable, Identifiable, Hashable {
         let id = UUID()
         
         let actors: [String]
@@ -22,13 +22,6 @@ extension NFLX {
         let releaseYear: String
         let title: String
         let writers: [String]?
-    }
-}
-
-extension NFLX.Film: Equatable {
-    static func == (lhs: Self, rhs: Self) -> Bool {
-        return (lhs.title == rhs.title && lhs.productionCompany == rhs.productionCompany && lhs.releaseYear == rhs.releaseYear)
-        
     }
 }
 

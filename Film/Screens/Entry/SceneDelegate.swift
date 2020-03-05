@@ -17,6 +17,26 @@ extension SceneDelegate {
                willConnectTo session: UISceneSession,
                options connectionOptions: UIScene.ConnectionOptions) {
         
+        guard let windowScene = scene as? UIWindowScene else {
+            return
+        }
         
-    }
+        switch windowScene.screen.traitCollection.userInterfaceIdiom {
+        case .phone:
+            let discoverViewController = DiscoverViewController()
+            
+            let navigationController = UINavigationController(rootViewController: discoverViewController)
+            navigationController.navigationBar.prefersLargeTitles = true
+            
+            let window = UIWindow(windowScene: windowScene)
+            window.rootViewController = navigationController
+            window.makeKeyAndVisible()
+            
+            self.window = window
+            
+        default:
+            break
+            
+        }
+    }   
 }

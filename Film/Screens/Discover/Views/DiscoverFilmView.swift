@@ -14,11 +14,13 @@ final class DiscoverFilmView: UICollectionViewCell {
     
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
+        contentView.addSubview(imageView)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
         imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
@@ -26,6 +28,7 @@ final class DiscoverFilmView: UICollectionViewCell {
 
 extension DiscoverFilmView {
     func configure(withFilm film: NFLX.Film) {
+        imageView.image = UIImage(named: "nflx.logo")
         viewModel = .init(film: film)
     }
 }

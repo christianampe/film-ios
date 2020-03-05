@@ -7,19 +7,55 @@
 //
 
 import Foundation
-import Combine
 
 enum Networking {
     @discardableResult
-    static func run<T: Decodable>(_ request: URLRequest,
-                                  _ object: T.Type,
-                                  _ decoder: JSONDecoder = .defaultCase) -> AnyPublisher<T, Error> {
+    static func data(_ request: URLRequest,
+                     _ completion: @escaping ((Result<Data, Error>) -> Void)) -> URLSessionDataTask {
         
-        URLSession
-            .shared
-            .dataTaskPublisher(for: request)
-            .tryMap { (try decoder.decode(T.self, from: $0.data)) }
-            .receive(on: DispatchQueue.main)
-            .eraseToAnyPublisher()
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                completion(.failure(.underlying(error)))
+            } else if let data = data {
+                completion(.success(data))
+            } else {
+                completion(.failure(.inconsistency))
+            }
+        }
+        
+        task.resume()
+        
+        return task
+    }
+    
+    @discardableResult
+    static func object<T: Decodable>(_ request: URLRequest,
+                                     _ object: T.Type,
+                                     _ decoder: JSONDecoder = .defaultCase,
+                                     _ completion: @escaping ((Result<T, Error>) -> Void)) -> URLSessionDataTask {
+        
+        return data(request) { result in
+            switch result {
+            case .success(let data):
+                guard let object = try? decoder.decode(T.self, from: data) else {
+                    completion(.failure(.parsing))
+                    return
+                }
+                
+                completion(.success(object))
+                
+            case .failure(let error):
+                completion(.failure(.underlying(error)))
+            }
+        }
+    }
+}
+
+
+extension Networking {
+    enum Error: Swift.Error {
+        case inconsistency
+        case underlying(Swift.Error)
+        case parsing
     }
 }
