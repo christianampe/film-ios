@@ -7,31 +7,55 @@
 //
 
 import Foundation
-import Combine
 
 final class DiscoverFilmViewModel: ObservableObject {
-    let film: NFLX.Film
+    private let film: NFLX.Film
     
     init(film: NFLX.Film) {
         self.film = film
     }
     
     deinit {
-        stop()
+        stopLoading()
     }
+    
+    weak var delegate: DiscoverFilmViewModelDelegate?
 
-    private var cancellable: AnyCancellable?
-
-    @Published private(set) var imageData: Data?
+    private(set) var omdbFilm: OMDB.Film?
+    private(set) var imageData: Data?
+    
+    private var operation: URLSessionDataTask?
 }
 
 extension DiscoverFilmViewModel {
     func load() {
-
+        operation = Networking.object(OMDB.Service.movies(query: film.strippedTitle).request(), OMDB.Film.self) { [weak self] result in
+            guard let self = self else {
+                return
+            }
+            
+            switch result {
+            case .success(let film):
+                self.operation = IMG.load(atURL: film.poster) { [weak self] result in
+                    guard let self = self else {
+                        return
+                    }
+                    
+                    switch result {
+                    case .success(let image):
+                        self.delegate?.discoverFilmViewModel(self, didRetrieveOMDBPoster: image)
+                    case .failure:
+                        break
+                    }
+                }
+            case .failure:
+                break
+            }
+        }
     }
 
-    func stop() {
-        cancellable?.cancel()
-        cancellable = nil
+    func stopLoading() {
+        operation?.cancel()
+        operation = nil
     }
 }

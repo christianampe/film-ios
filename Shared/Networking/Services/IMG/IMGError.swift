@@ -10,7 +10,6 @@ import Foundation
 
 extension IMG {
     enum Error: Swift.Error {
-        case inconsistency
         case invalidURL
         case invalidData
         case networking(Networking.Error)

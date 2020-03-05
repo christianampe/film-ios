@@ -26,6 +26,26 @@ extension NFLX {
 }
 
 extension NFLX.Film {
+    var strippedTitle: String {
+        var alphaNumericString = title.replacingOccurrences(of: "[^A-Za-z0-9]+", with: " ", options: [.regularExpression]).lowercased()
+        
+        if let seasonIndex = alphaNumericString.range(of: "season")?.lowerBound {
+            alphaNumericString = String(alphaNumericString[..<seasonIndex])
+        }
+        
+        if let pilotIndex = alphaNumericString.range(of: "pilot")?.lowerBound {
+            alphaNumericString = String(alphaNumericString[..<pilotIndex])
+        }
+        
+        if let specialIndex = alphaNumericString.range(of: "special")?.lowerBound {
+            alphaNumericString = String(alphaNumericString[..<specialIndex])
+        }
+        
+        return alphaNumericString
+    }
+}
+
+extension NFLX.Film {
     static let empty = NFLX.Film(actors: [],
                                   director: "",
                                   funFacts: nil,

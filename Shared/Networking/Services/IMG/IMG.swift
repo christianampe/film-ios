@@ -9,18 +9,12 @@
 import UIKit
 
 final class IMG {
-    static let shared = IMG()
-    
-    private let cache: Cache<UIImage>
-    
-    init(cache: Cache<UIImage> = .init()) {
-        self.cache = cache
-    }
+    private static var cache = Cache<UIImage>()
 }
 
 extension IMG {
-    func load(atURL imageURL: String,
-              _ completion: @escaping ((Result<UIImage, Error>) -> Void)) -> URLSessionDataTask? {
+    static func load(atURL imageURL: String,
+                     _ completion: @escaping ((Result<UIImage, Error>) -> Void)) -> URLSessionDataTask? {
         
         if let image = cache.object(forKey: imageURL) {
             completion(.success(image))
@@ -31,12 +25,7 @@ extension IMG {
                 return nil
             }
             
-            return Networking.data(.init(url: url)) { [weak self] result in
-                guard let self = self else {
-                    completion(.failure(.inconsistency))
-                    return
-                }
-                
+            return Networking.data(.init(url: url)) { result in
                 switch result {
                 case .success(let data):
                     guard let image = UIImage(data: data) else {
@@ -44,7 +33,7 @@ extension IMG {
                         return
                     }
                     
-                    self.cache.insert(image, forKey: imageURL)
+                    cache.insert(image, forKey: imageURL)
                     completion(.success(image))
                 case .failure(let error):
                     completion(.failure(.networking(error)))

@@ -15,13 +15,11 @@ final class DiscoverFilmView: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         style()
-        imageView.image = UIImage(named: "nflx.logo")
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         style()
-        imageView.image = UIImage(named: "nflx.logo")
     }
     
     private lazy var imageView: UIImageView = {
@@ -36,11 +34,24 @@ final class DiscoverFilmView: UICollectionViewCell {
         return imageView
     }()
     
+    private lazy var label: UILabel = {
+        let label = UILabel()
+        imageView.addSubview(label)
+        label.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        label.textColor = .red
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        return label
+    }()
+    
 }
 
 extension DiscoverFilmView {
     func configure(withFilm film: NFLX.Film) {
+        label.text = film.title
         viewModel = .init(film: film)
+        viewModel.delegate = self
+        viewModel.load()
     }
 }
 
@@ -48,7 +59,8 @@ extension DiscoverFilmView {
 extension DiscoverFilmView {
     override func prepareForReuse() {
         super.prepareForReuse()
-//        imageView.image = nil
+        viewModel.stopLoading()
+        imageView.image = nil
     }
 }
 
@@ -57,5 +69,20 @@ private extension DiscoverFilmView {
     func style() {
         layer.masksToBounds = true
         layer.cornerRadius = 8
+    }
+}
+
+extension DiscoverFilmView: DiscoverFilmViewModelDelegate {
+    func discoverFilmViewModel(_ discoverFilmViewModel: DiscoverFilmViewModel,
+                               didRetrieveOMDBFilm film: OMDB.Film) {
+        
+    }
+    
+    func discoverFilmViewModel(_ discoverFilmViewModel: DiscoverFilmViewModel,
+                               didRetrieveOMDBPoster poster: UIImage) {
+        
+        DispatchQueue.main.async { [weak self] in
+            self?.imageView.image = poster
+        }
     }
 }
