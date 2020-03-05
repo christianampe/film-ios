@@ -74,15 +74,15 @@ private extension DiscoverFilmView {
 
 extension DiscoverFilmView: DiscoverFilmViewModelDelegate {
     func discoverFilmViewModel(_ discoverFilmViewModel: DiscoverFilmViewModel,
-                               didRetrieveOMDBFilm film: OMDB.Film) {
-        
-    }
-    
-    func discoverFilmViewModel(_ discoverFilmViewModel: DiscoverFilmViewModel,
-                               didRetrieveOMDBPoster poster: UIImage) {
+                               didRetrieveOMDBPoster result: Result<UIImage, IMG.Error>) {
         
         DispatchQueue.main.async { [weak self] in
-            self?.imageView.image = poster
+            switch result {
+            case .success(let image):
+                self?.imageView.image = image
+            case .failure:
+                self?.imageView.image = UIImage(named: "nflx.icon")
+            }
         }
     }
 }

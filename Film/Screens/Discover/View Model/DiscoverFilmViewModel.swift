@@ -41,15 +41,10 @@ extension DiscoverFilmViewModel {
                         return
                     }
                     
-                    switch result {
-                    case .success(let image):
-                        self.delegate?.discoverFilmViewModel(self, didRetrieveOMDBPoster: image)
-                    case .failure:
-                        break
-                    }
+                    self.delegate?.discoverFilmViewModel(self, didRetrieveOMDBPoster: result)
                 }
-            case .failure:
-                break
+            case .failure(let error):
+                self.delegate?.discoverFilmViewModel(self, didRetrieveOMDBPoster: .failure(.networking(error)))
             }
         }
     }

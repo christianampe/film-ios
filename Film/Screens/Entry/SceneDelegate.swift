@@ -22,14 +22,9 @@ extension SceneDelegate {
         }
         
         switch windowScene.screen.traitCollection.userInterfaceIdiom {
-        case .phone:
-            let discoverViewController = DiscoverViewController()
-            
-            let navigationController = UINavigationController(rootViewController: discoverViewController)
-            navigationController.navigationBar.prefersLargeTitles = true
-            
+        case .phone:            
             let window = UIWindow(windowScene: windowScene)
-            window.rootViewController = navigationController
+            window.rootViewController = DiscoverViewController()
             window.makeKeyAndVisible()
             
             self.window = window

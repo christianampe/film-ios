@@ -9,6 +9,5 @@
 import UIKit.UIImage
 
 protocol DiscoverFilmViewModelDelegate: class {
-    func discoverFilmViewModel(_ discoverFilmViewModel: DiscoverFilmViewModel, didRetrieveOMDBFilm film: OMDB.Film)
-    func discoverFilmViewModel(_ discoverFilmViewModel: DiscoverFilmViewModel, didRetrieveOMDBPoster poster: UIImage)
+    func discoverFilmViewModel(_ discoverFilmViewModel: DiscoverFilmViewModel, didRetrieveOMDBPoster result: Result<UIImage, IMG.Error>)
 }
