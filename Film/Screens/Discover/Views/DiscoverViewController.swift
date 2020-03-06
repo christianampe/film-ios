@@ -14,41 +14,26 @@ final class DiscoverViewController: UIViewController {
     init(viewModel: DiscoverViewModel = .init()) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-        title = "Films"
+        navigationItem.titleView = searchBarView
         view.backgroundColor = .systemGray6
         viewModel.delegate = self
         viewModel.fetch()
-        searchBar.layoutIfNeeded()
     }
     
     required init?(coder: NSCoder) {
         viewModel = .init()
         super.init(coder: coder)
-        title = "Films"
+        navigationItem.titleView = searchBarView
+        view.backgroundColor = .systemGray6
         viewModel.delegate = self
         viewModel.fetch()
-        searchBar.layoutIfNeeded()
     }
     
-    private lazy var searchBarContainerView: UIView = {
-        let searchBarContainerView = UIView()
-        view.addSubview(searchBarContainerView)
-        searchBarContainerView.translatesAutoresizingMaskIntoConstraints = false
-        searchBarContainerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        searchBarContainerView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        searchBarContainerView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        return searchBarContainerView
-    }()
-    
-    private lazy var searchBar: DiscoverSearchBar = {
-        let searchBar = DiscoverSearchBar()
-        searchBarContainerView.addSubview(searchBar)
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
-        searchBar.heightAnchor.constraint(equalToConstant: 56).isActive = true
-        searchBar.topAnchor.constraint(equalTo: searchBarContainerView.topAnchor).isActive = true
-        searchBar.leadingAnchor.constraint(equalTo: searchBarContainerView.leadingAnchor, constant: 28).isActive = true
-        searchBar.trailingAnchor.constraint(equalTo: searchBarContainerView.trailingAnchor, constant: -28).isActive = true
-        searchBar.bottomAnchor.constraint(equalTo: searchBarContainerView.bottomAnchor).isActive = true
+    private lazy var searchBarView: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.tintColor = .systemGray3
+        searchBar.placeholder = "Title, actor, director, ect..."
+        searchBar.delegate = self
         return searchBar
     }()
     
@@ -56,7 +41,7 @@ final class DiscoverViewController: UIViewController {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
         view.addSubview(collectionView)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.topAnchor.constraint(equalTo: searchBarContainerView.bottomAnchor, constant: 8).isActive = true
+        collectionView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
@@ -128,5 +113,13 @@ extension DiscoverViewController: UICollectionViewDelegate {
                         forItemAt indexPath: IndexPath) {
         
         (cell as! DiscoverFilmView).cancelLoading()
+    }
+}
+
+extension DiscoverViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar,
+                   textDidChange searchText: String) {
+        
+        print(searchText)
     }
 }

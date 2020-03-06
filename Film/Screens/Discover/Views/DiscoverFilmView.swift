@@ -75,7 +75,7 @@ extension DiscoverFilmView: DiscoverFilmViewModelDelegate {
             case .success(let image):
                 self?.imageView.image = image
             case .failure:
-                self?.imageView.image = UIImage(named: "nflx.dark")
+                self?.imageView.image = UIImage(named: "nflx.icon")
             }
         }
     }
