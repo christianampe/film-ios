@@ -15,6 +15,7 @@ final class DiscoverViewController: UIViewController {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         title = "Films"
+        view.backgroundColor = .systemGray6
         viewModel.delegate = self
         viewModel.fetch()
         searchBar.layoutIfNeeded()
@@ -46,7 +47,7 @@ final class DiscoverViewController: UIViewController {
         searchBar.heightAnchor.constraint(equalToConstant: 56).isActive = true
         searchBar.topAnchor.constraint(equalTo: searchBarContainerView.topAnchor).isActive = true
         searchBar.leadingAnchor.constraint(equalTo: searchBarContainerView.leadingAnchor, constant: 28).isActive = true
-        searchBar.trailingAnchor.constraint(equalTo: searchBarContainerView.trailingAnchor, constant: 28).isActive = true
+        searchBar.trailingAnchor.constraint(equalTo: searchBarContainerView.trailingAnchor, constant: -28).isActive = true
         searchBar.bottomAnchor.constraint(equalTo: searchBarContainerView.bottomAnchor).isActive = true
         return searchBar
     }()
@@ -55,12 +56,15 @@ final class DiscoverViewController: UIViewController {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
         view.addSubview(collectionView)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.topAnchor.constraint(equalTo: searchBarContainerView.bottomAnchor).isActive = true
+        collectionView.topAnchor.constraint(equalTo: searchBarContainerView.bottomAnchor, constant: 8).isActive = true
         collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         collectionView.registerCollectionViewCell(DiscoverFilmView.self)
         collectionView.delegate = self
+        collectionView.keyboardDismissMode = .interactive
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.backgroundColor = .clear
         return collectionView
     }()
     
