@@ -50,8 +50,13 @@ extension DiscoverViewModel {
     func filter(_ query: String) {
         self.query = query
         
-        debouncer.handler = analyze
-        debouncer.call()
+        if let results = cache.object(forKey: query) {
+            self.delegate?.discoverViewModel(self,
+                                             didUpdateCategories: results)
+        } else {
+            debouncer.handler = analyze
+            debouncer.call()
+        }
     }
 }
 
@@ -70,6 +75,9 @@ private extension DiscoverViewModel {
                 let filteredFilms = self.filter(self.films, query: self.query)
                 results = self.group(filteredFilms)
             }
+            
+            self.cache.insert(results,
+                              forKey: self.query)
             
             self.delegate?.discoverViewModel(self,
                                              didUpdateCategories: results)

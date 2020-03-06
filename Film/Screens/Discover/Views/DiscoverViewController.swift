@@ -86,21 +86,25 @@ extension DiscoverViewController: DiscoverViewModelDelegate {
     func discoverViewModel(_ discoverViewModel: DiscoverViewModel,
                            didUpdateCategories categories: [(String, [NFLX.Film])]) {
         
-        var snapshot = NSDiffableDataSourceSnapshot<String, NFLX.Film>()
-        var shouldAnimateDifferences = true
-        
-        if categories.isEmpty {
-            shouldAnimateDifferences = false
-        }
-        
-        categories.forEach { category in
-            snapshot.appendSections([category.0])
-            snapshot.appendItems(category.1, toSection: category.0)
-        }
-        
         DispatchQueue.main.async { [weak self] in
-            self?.collectionViewDataSource.apply(snapshot,
-                                                 animatingDifferences: shouldAnimateDifferences)
+            guard let self = self else {
+                return
+            }
+            
+            var snapshot = NSDiffableDataSourceSnapshot<String, NFLX.Film>()
+            var shouldAnimateDifferences = true
+            
+            if categories.isEmpty {
+                shouldAnimateDifferences = false
+            }
+            
+            categories.forEach { category in
+                snapshot.appendSections([category.0])
+                snapshot.appendItems(category.1, toSection: category.0)
+            }
+            
+            self.collectionViewDataSource.apply(snapshot,
+                                                animatingDifferences: shouldAnimateDifferences)
         }
     }
 }
