@@ -57,7 +57,7 @@ extension NFLX.Film {
             comparisonString += writers.joined()
         }
         
-        return comparisonString.contains(substring)
+        return comparisonString.lowercased().contains(substring.lowercased())
     }
 }
 

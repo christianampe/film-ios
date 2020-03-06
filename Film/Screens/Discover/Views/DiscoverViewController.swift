@@ -62,8 +62,8 @@ final class DiscoverViewController: UIViewController {
                                    bottom: 10,
                                    trailing: 10)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.48),
-                                               heightDimension: .fractionalHeight(0.36))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.36),
+                                               heightDimension: .fractionalHeight(0.24))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
                                                        subitems: [item])
         
@@ -87,6 +87,11 @@ extension DiscoverViewController: DiscoverViewModelDelegate {
                            didUpdateCategories categories: [(String, [NFLX.Film])]) {
         
         var snapshot = NSDiffableDataSourceSnapshot<String, NFLX.Film>()
+        var shouldAnimateDifferences = true
+        
+        if categories.isEmpty {
+            shouldAnimateDifferences = false
+        }
         
         categories.forEach { category in
             snapshot.appendSections([category.0])
@@ -95,7 +100,7 @@ extension DiscoverViewController: DiscoverViewModelDelegate {
         
         DispatchQueue.main.async { [weak self] in
             self?.collectionViewDataSource.apply(snapshot,
-                                                 animatingDifferences: true)
+                                                 animatingDifferences: shouldAnimateDifferences)
         }
     }
 }
@@ -120,6 +125,6 @@ extension DiscoverViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar,
                    textDidChange searchText: String) {
         
-        print(searchText)
+        viewModel.filter(searchText)
     }
 }

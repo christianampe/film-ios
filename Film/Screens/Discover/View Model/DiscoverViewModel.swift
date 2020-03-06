@@ -9,29 +9,24 @@
 import Foundation
 
 final class DiscoverViewModel: ObservableObject {
-    private var films: [NFLX.Film] {
-        didSet {
-            analyze()
-        }
-    }
+    private let cache = Cache<[(String, [NFLX.Film])]>()
+    private var films: [NFLX.Film]
+    private var query: String
+    private var movieTask: URLSessionDataTask?
+    private lazy var debouncer = Debouncer(delay: 0.5)
     
-    init(films: [NFLX.Film] = []) {
+    weak var delegate: DiscoverViewModelDelegate?
+    
+    init(films: [NFLX.Film] = [],
+         query: String = "") {
+        
         self.films = films
+        self.query = query
     }
     
     deinit {
         movieTask?.cancel()
         movieTask = nil
-    }
-    
-    weak var delegate: DiscoverViewModelDelegate?
-    
-    private var movieTask: URLSessionDataTask?
-    
-    private(set) var categories: [(String, [NFLX.Film])] = [] {
-        didSet {
-            delegate?.discoverViewModel(self, didUpdateCategories: categories)
-        }
     }
 }
 
@@ -45,25 +40,52 @@ extension DiscoverViewModel {
             switch result {
             case .success(let films):
                 self.films = films
-            case .failure(let error):
-                print(error)
+                self.analyze()
+            case .failure:
                 break
             }
         }
+    }
+    
+    func filter(_ query: String) {
+        self.query = query
+        
+        debouncer.handler = analyze
+        debouncer.call()
     }
 }
 
 private extension DiscoverViewModel {
     func analyze() {
-        DispatchQueue.global(qos: .background).async { [weak self] in
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self = self else {
                 return
             }
             
-            let tempDict = Dictionary(grouping: self.films, by: { $0.locations })
-            let categories = tempDict.sorted { $0.key < $1.key }
+            var results = [(String, [NFLX.Film])]()
             
-            self.categories = categories
+            if self.query.isEmpty {
+                results = self.group(self.films)
+            } else {
+                let filteredFilms = self.filter(self.films, query: self.query)
+                results = self.group(filteredFilms)
+            }
+            
+            self.delegate?.discoverViewModel(self,
+                                             didUpdateCategories: results)
         }
+    }
+}
+
+private extension DiscoverViewModel {
+    func filter(_ films: [NFLX.Film], query: String) -> [NFLX.Film] {
+        films.filter { $0.contains(substring: query) }
+    }
+    
+    func group(_ films: [NFLX.Film]) -> [(String, [NFLX.Film])] {
+        let tempDict = Dictionary(grouping: films, by: { $0.locations })
+        let categories = tempDict.sorted { $0.key < $1.key }
+        
+        return categories
     }
 }
