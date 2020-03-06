@@ -63,4 +63,6 @@ final class DiscoverSearchBar: UIView {
         return vStack
     }()
     
+    weak var delegate: DiscoverSearchBarDelegate?
+    
 }

@@ -16,7 +16,7 @@ final class DiscoverFilmViewModel: ObservableObject {
     }
     
     deinit {
-        stopLoading()
+        cancelLoading()
     }
     
     weak var delegate: DiscoverFilmViewModelDelegate?
@@ -49,7 +49,7 @@ extension DiscoverFilmViewModel {
         }
     }
 
-    func stopLoading() {
+    func cancelLoading() {
         operation?.cancel()
         operation = nil
     }

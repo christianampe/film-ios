@@ -9,7 +9,6 @@
 import UIKit
 
 final class DiscoverViewController: UIViewController {
-    
     private let viewModel: DiscoverViewModel
     
     init(viewModel: DiscoverViewModel = .init()) {
@@ -18,6 +17,7 @@ final class DiscoverViewController: UIViewController {
         title = "Films"
         viewModel.delegate = self
         viewModel.fetch()
+        searchBar.layoutIfNeeded()
     }
     
     required init?(coder: NSCoder) {
@@ -26,7 +26,18 @@ final class DiscoverViewController: UIViewController {
         title = "Films"
         viewModel.delegate = self
         viewModel.fetch()
+        searchBar.layoutIfNeeded()
     }
+    
+    private lazy var searchBarContainerView: UIView = {
+        let searchBarContainerView = UIView()
+        view.addSubview(searchBarContainerView)
+        searchBarContainerView.translatesAutoresizingMaskIntoConstraints = false
+        searchBarContainerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        searchBarContainerView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        searchBarContainerView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        return searchBarContainerView
+    }()
     
     private lazy var searchBar: DiscoverSearchBar = {
         let searchBar = DiscoverSearchBar()
@@ -40,21 +51,16 @@ final class DiscoverViewController: UIViewController {
         return searchBar
     }()
     
-    private lazy var searchBarContainerView: UIView = {
-        let searchBarContainerView = UIView()
-        searchBarContainerView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        return searchBarContainerView
-    }()
-    
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
         view.addSubview(collectionView)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        collectionView.topAnchor.constraint(equalTo: searchBarContainerView.bottomAnchor).isActive = true
         collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         collectionView.registerCollectionViewCell(DiscoverFilmView.self)
+        collectionView.delegate = self
         return collectionView
     }()
     
@@ -67,7 +73,7 @@ final class DiscoverViewController: UIViewController {
                                    bottom: 10,
                                    trailing: 10)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.4),
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.48),
                                                heightDimension: .fractionalHeight(0.36))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
                                                        subitems: [item])
@@ -102,5 +108,21 @@ extension DiscoverViewController: DiscoverViewModelDelegate {
             self?.collectionViewDataSource.apply(snapshot,
                                                  animatingDifferences: true)
         }
+    }
+}
+
+extension DiscoverViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView,
+                        willDisplay cell: UICollectionViewCell,
+                        forItemAt indexPath: IndexPath) {
+        
+        (cell as! DiscoverFilmView).load()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        didEndDisplaying cell: UICollectionViewCell,
+                        forItemAt indexPath: IndexPath) {
+        
+        (cell as! DiscoverFilmView).cancelLoading()
     }
 }

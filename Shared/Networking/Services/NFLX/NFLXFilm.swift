@@ -46,6 +46,22 @@ extension NFLX.Film {
 }
 
 extension NFLX.Film {
+    func contains(substring: String) -> Bool {
+        var comparisonString = actors.joined()
+        comparisonString += director
+        comparisonString += locations
+        comparisonString += releaseYear
+        comparisonString += title
+        
+        if let writers = writers {
+            comparisonString += writers.joined()
+        }
+        
+        return comparisonString.contains(substring)
+    }
+}
+
+extension NFLX.Film {
     static let empty = NFLX.Film(actors: [],
                                   director: "",
                                   funFacts: nil,

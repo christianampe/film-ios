@@ -9,8 +9,7 @@
 import UIKit
 
 final class DiscoverFilmView: UICollectionViewCell {
-    
-    private var viewModel: DiscoverFilmViewModel = .init(film: .empty)
+    private var viewModel: DiscoverFilmViewModel?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -33,25 +32,20 @@ final class DiscoverFilmView: UICollectionViewCell {
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
-    
-    private lazy var label: UILabel = {
-        let label = UILabel()
-        imageView.addSubview(label)
-        label.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        label.textColor = .red
-        label.numberOfLines = 0
-        label.textAlignment = .center
-        return label
-    }()
-    
 }
 
 extension DiscoverFilmView {
     func configure(withFilm film: NFLX.Film) {
-        label.text = film.title
         viewModel = .init(film: film)
-        viewModel.delegate = self
-        viewModel.load()
+        viewModel?.delegate = self
+    }
+    
+    func load() {
+        viewModel?.load()
+    }
+    
+    func cancelLoading() {
+        viewModel?.cancelLoading()
     }
 }
 
@@ -59,7 +53,7 @@ extension DiscoverFilmView {
 extension DiscoverFilmView {
     override func prepareForReuse() {
         super.prepareForReuse()
-        viewModel.stopLoading()
+        viewModel?.cancelLoading()
         imageView.image = nil
     }
 }
@@ -68,7 +62,7 @@ extension DiscoverFilmView {
 private extension DiscoverFilmView {
     func style() {
         layer.masksToBounds = true
-        layer.cornerRadius = 8
+        layer.cornerRadius = 6
     }
 }
 
@@ -81,7 +75,7 @@ extension DiscoverFilmView: DiscoverFilmViewModelDelegate {
             case .success(let image):
                 self?.imageView.image = image
             case .failure:
-                self?.imageView.image = UIImage(named: "nflx.icon")
+                self?.imageView.image = UIImage(named: "nflx.dark")
             }
         }
     }
