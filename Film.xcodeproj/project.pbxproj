@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5D245073241452F600BD331D /* DiscoverFilmHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D245072241452F600BD331D /* DiscoverFilmHeader.swift */; };
 		5D4B399F241316E200A55BEE /* NetworkingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4B399E241316E200A55BEE /* NetworkingError.swift */; };
 		5D4DCFDB240F103300D90A32 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4DCFDA240F103300D90A32 /* AppDelegate.swift */; };
 		5D4DCFDD240F103300D90A32 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4DCFDC240F103300D90A32 /* SceneDelegate.swift */; };
@@ -27,7 +28,7 @@
 		5D4DD069240F148500D90A32 /* UICollectionView++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4DD068240F148500D90A32 /* UICollectionView++.swift */; };
 		5D4DD073240F1B6A00D90A32 /* DiscoverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4DD06F240F1B6A00D90A32 /* DiscoverViewModel.swift */; };
 		5D4DD076240F1B6A00D90A32 /* DiscoverFilmViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4DD072240F1B6A00D90A32 /* DiscoverFilmViewModel.swift */; };
-		5D4DD07A240F1CBC00D90A32 /* DiscoverFilmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4DD079240F1CBC00D90A32 /* DiscoverFilmView.swift */; };
+		5D4DD07A240F1CBC00D90A32 /* DiscoverFilmCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4DD079240F1CBC00D90A32 /* DiscoverFilmCell.swift */; };
 		5DA0161E241189BA003E5FDC /* DiscoverViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DA0161D241189BA003E5FDC /* DiscoverViewModelDelegate.swift */; };
 		5DA0162024119703003E5FDC /* DiscoverFilmViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DA0161F24119703003E5FDC /* DiscoverFilmViewModelDelegate.swift */; };
 		5DA016242412C1B4003E5FDC /* Debouncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DA016232412C1B4003E5FDC /* Debouncer.swift */; };
@@ -38,6 +39,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5D245072241452F600BD331D /* DiscoverFilmHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverFilmHeader.swift; sourceTree = "<group>"; };
 		5D4B399E241316E200A55BEE /* NetworkingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingError.swift; sourceTree = "<group>"; };
 		5D4DCFD7240F103300D90A32 /* Film.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Film.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D4DCFDA240F103300D90A32 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -60,7 +62,7 @@
 		5D4DD068240F148500D90A32 /* UICollectionView++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView++.swift"; sourceTree = "<group>"; };
 		5D4DD06F240F1B6A00D90A32 /* DiscoverViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverViewModel.swift; sourceTree = "<group>"; };
 		5D4DD072240F1B6A00D90A32 /* DiscoverFilmViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverFilmViewModel.swift; sourceTree = "<group>"; };
-		5D4DD079240F1CBC00D90A32 /* DiscoverFilmView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverFilmView.swift; sourceTree = "<group>"; };
+		5D4DD079240F1CBC00D90A32 /* DiscoverFilmCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverFilmCell.swift; sourceTree = "<group>"; };
 		5DA0161D241189BA003E5FDC /* DiscoverViewModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverViewModelDelegate.swift; sourceTree = "<group>"; };
 		5DA0161F24119703003E5FDC /* DiscoverFilmViewModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverFilmViewModelDelegate.swift; sourceTree = "<group>"; };
 		5DA016232412C1B4003E5FDC /* Debouncer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debouncer.swift; sourceTree = "<group>"; };
@@ -235,7 +237,8 @@
 			isa = PBXGroup;
 			children = (
 				5D4DD062240F124800D90A32 /* DiscoverViewController.swift */,
-				5D4DD079240F1CBC00D90A32 /* DiscoverFilmView.swift */,
+				5D4DD079240F1CBC00D90A32 /* DiscoverFilmCell.swift */,
+				5D245072241452F600BD331D /* DiscoverFilmHeader.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -349,7 +352,8 @@
 			files = (
 				5D4DD05B240F114600D90A32 /* Service.swift in Sources */,
 				5DD6F086240F292E00408A23 /* IMG.swift in Sources */,
-				5D4DD07A240F1CBC00D90A32 /* DiscoverFilmView.swift in Sources */,
+				5D245073241452F600BD331D /* DiscoverFilmHeader.swift in Sources */,
+				5D4DD07A240F1CBC00D90A32 /* DiscoverFilmCell.swift in Sources */,
 				5DD6F083240F27EC00408A23 /* StructContainer.swift in Sources */,
 				5D4DD05C240F114600D90A32 /* Target.swift in Sources */,
 				5DD6F081240F271600408A23 /* Cache.swift in Sources */,

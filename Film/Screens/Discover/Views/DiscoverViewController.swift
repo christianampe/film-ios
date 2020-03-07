@@ -65,7 +65,7 @@ extension DiscoverViewController: UICollectionViewDelegate {
                         didEndDisplaying cell: UICollectionViewCell,
                         forItemAt indexPath: IndexPath) {
         
-        (cell as! DiscoverFilmView).cancelLoading()
+        (cell as! DiscoverFilmCell).cancelLoading()
     }
 }
 
@@ -89,22 +89,34 @@ private extension DiscoverViewController {
         item.contentInsets = .init(top: 12, leading: 8, bottom: 12, trailing: 8)
         let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(148), heightDimension: .absolute(224))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(44))
+        let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+        header.contentInsets = .init(top: 12, leading: 8, bottom: 0, trailing: 8)
         let section = NSCollectionLayoutSection(group: group)
+        section.boundarySupplementaryItems = [header]
         section.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary
         let layout = UICollectionViewCompositionalLayout(section: section)
+
         
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.delegate = self
         collectionView.backgroundColor = .clear
         collectionView.keyboardDismissMode = .interactive
         collectionView.showsVerticalScrollIndicator = false
-        collectionView.registerCollectionViewCell(DiscoverFilmView.self)
+        collectionView.registerCollectionViewCell(DiscoverFilmCell.self)
+        collectionView.registerReusableHeaderView(DiscoverFilmHeader.self)
         
         collectionViewDataSource = .init(collectionView: collectionView) { (collectionView, indexPath, film) in
-            let cell = collectionView.dequeueReusableCell(for: indexPath) as DiscoverFilmView
+            let cell = collectionView.dequeueReusableCell(for: indexPath) as DiscoverFilmCell
             cell.configure(withFilm: film)
             cell.load()
             return cell
+        }
+        
+        collectionViewDataSource.supplementaryViewProvider = { (collectionView, kind, indexPath) in
+            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, for: indexPath) as DiscoverFilmHeader
+            header.setTitle(indexPath.description)
+            return header
         }
         
         navigationItem.titleView = searchBar
