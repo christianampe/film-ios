@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class IMG {
+enum IMG {
     private static var cache = Cache<UIImage>()
 }
 

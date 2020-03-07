@@ -7,5 +7,6 @@
 //
 
 protocol DiscoverViewModelDelegate: class {
-    func discoverViewModel(_ discoverViewModel: DiscoverViewModel, didUpdateCategories categories: [(String, [NFLX.Film])])
+    func discoverViewModel(_ discoverViewModel: DiscoverViewModel,
+                           didUpdateCategories categories: [(String, [NFLX.Film])])
 }

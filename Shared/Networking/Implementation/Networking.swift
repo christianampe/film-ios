@@ -50,12 +50,3 @@ enum Networking {
         }
     }
 }
-
-
-extension Networking {
-    enum Error: Swift.Error {
-        case inconsistency
-        case underlying(Swift.Error)
-        case parsing
-    }
-}

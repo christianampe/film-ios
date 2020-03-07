@@ -9,18 +9,13 @@
 import Foundation
 
 final class DiscoverFilmViewModel: ObservableObject {
-    private let film: NFLX.Film
-    
-    init(film: NFLX.Film) {
-        self.film = film
-    }
-    
     deinit {
         cancelLoading()
     }
     
     weak var delegate: DiscoverFilmViewModelDelegate?
 
+    private(set) var nflxFilm: NFLX.Film?
     private(set) var omdbFilm: OMDB.Film?
     private(set) var imageData: Data?
     
@@ -28,8 +23,16 @@ final class DiscoverFilmViewModel: ObservableObject {
 }
 
 extension DiscoverFilmViewModel {
+    func configure(_ film: NFLX.Film) {
+        nflxFilm = film
+    }
+    
     func load() {
-        operation = Networking.object(OMDB.Service.movies(query: film.strippedTitle).request(), OMDB.Film.self) { [weak self] result in
+        guard let strippedFilmTitle = nflxFilm?.strippedTitle else {
+            return
+        }
+        
+        operation = OMDB.load(.movies(query: strippedFilmTitle)) { [weak self] result in
             guard let self = self else {
                 return
             }
@@ -41,10 +44,12 @@ extension DiscoverFilmViewModel {
                         return
                     }
                     
-                    self.delegate?.discoverFilmViewModel(self, didRetrieveOMDBPoster: result)
+                    self.delegate?.discoverFilmViewModel(self,
+                                                         didRetrieveOMDBPoster: result)
                 }
             case .failure(let error):
-                self.delegate?.discoverFilmViewModel(self, didRetrieveOMDBPoster: .failure(.networking(error)))
+                self.delegate?.discoverFilmViewModel(self,
+                                                     didRetrieveOMDBPoster: .failure(.networking(error)))
             }
         }
     }

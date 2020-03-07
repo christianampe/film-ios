@@ -32,7 +32,7 @@ final class DiscoverViewModel: ObservableObject {
 
 extension DiscoverViewModel {
     func fetch() {
-        movieTask = Networking.object(NFLX.Service.movies.request(), [NFLX.Film].self, .snakeCase) { [weak self] result in
+        movieTask = NFLX.load(.movies) { [weak self] result in
             guard let self = self else {
                 return
             }

@@ -6,4 +6,32 @@
 //  Copyright © 2020 Christian Ampe. All rights reserved.
 //
 
-enum OMDB {}
+import Foundation
+
+enum OMDB {
+    static let cache = Cache<Film>()
+}
+
+extension OMDB {
+    static func load(_ service: Service,
+                     _ completion: @escaping ((Result<Film, Networking.Error>) -> Void)) -> URLSessionDataTask? {
+        
+        let request = service.request()
+        let key = request.url!.absoluteString
+        
+        if let cachedFilm = cache.object(forKey: key) {
+            completion(.success(cachedFilm))
+            return nil
+        } else {
+            return Networking.object(request, Film.self, .snakeCase) { result in
+                switch result {
+                case .success(let film):
+                    cache.insert(film, forKey: key)
+                    completion(.success(film))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+        }
+    }
+}

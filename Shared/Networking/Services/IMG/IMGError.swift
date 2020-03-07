@@ -6,8 +6,6 @@
 //  Copyright © 2020 Christian Ampe. All rights reserved.
 //
 
-import Foundation
-
 extension IMG {
     enum Error: Swift.Error {
         case invalidURL

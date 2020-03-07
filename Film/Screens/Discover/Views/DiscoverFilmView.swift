@@ -36,8 +36,9 @@ final class DiscoverFilmView: UICollectionViewCell {
 
 extension DiscoverFilmView {
     func configure(withFilm film: NFLX.Film) {
-        viewModel = .init(film: film)
+        viewModel = .init()
         viewModel?.delegate = self
+        viewModel?.configure(film)
     }
     
     func load() {
@@ -53,16 +54,7 @@ extension DiscoverFilmView {
 extension DiscoverFilmView {
     override func prepareForReuse() {
         super.prepareForReuse()
-        viewModel?.cancelLoading()
         imageView.image = nil
-    }
-}
-
-// MARK: - Style Methods
-private extension DiscoverFilmView {
-    func style() {
-        layer.masksToBounds = true
-        layer.cornerRadius = 6
     }
 }
 
@@ -78,5 +70,12 @@ extension DiscoverFilmView: DiscoverFilmViewModelDelegate {
                 self?.imageView.image = UIImage(named: "nflx.icon")
             }
         }
+    }
+}
+
+private extension DiscoverFilmView {
+    func style() {
+        layer.masksToBounds = true
+        layer.cornerRadius = 6
     }
 }
