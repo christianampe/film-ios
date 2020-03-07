@@ -35,23 +35,28 @@ extension DiscoverViewController {
 
 extension DiscoverViewController: DiscoverViewModelDelegate {
     func discoverViewModel(_ discoverViewModel: DiscoverViewModel,
-                           didUpdateCategories categories: [(String, [NFLX.Film])]) {
+                           didUpdateTheatres theatres: [Theatre]) {
         
-        var snapshot = NSDiffableDataSourceSnapshot<String, NFLX.Film>()
-        var shouldAnimateDifferences = true
-        
-        if categories.isEmpty {
-            shouldAnimateDifferences = false
-            return
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            
+            var snapshot = NSDiffableDataSourceSnapshot<Theatre, NFLX.Film>()
+            var shouldAnimateDifferences = true
+            
+            if theatres.isEmpty {
+                shouldAnimateDifferences = false
+            }
+            
+            theatres.forEach { theatre in
+                snapshot.appendSections([theatre])
+                snapshot.appendItems(theatre.films, toSection: theatre)
+            }
+            
+            self.collectionViewDataSource.apply(snapshot,
+                                                animatingDifferences: shouldAnimateDifferences)
         }
-        
-        categories.forEach { category in
-            snapshot.appendSections([category.0])
-            snapshot.appendItems(category.1, toSection: category.0)
-        }
-        
-        collectionViewDataSource.apply(snapshot,
-                                       animatingDifferences: shouldAnimateDifferences)
     }
 }
 
@@ -81,8 +86,8 @@ private extension DiscoverViewController {
         
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        item.contentInsets = .init(top: 10, leading: 10, bottom: 10, trailing: 10)
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.36), heightDimension: .fractionalHeight(0.24))
+        item.contentInsets = .init(top: 12, leading: 8, bottom: 12, trailing: 8)
+        let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(148), heightDimension: .absolute(224))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary
@@ -103,7 +108,7 @@ private extension DiscoverViewController {
         }
         
         navigationItem.titleView = searchBar
-        view.backgroundColor = .systemGray6
+        view.backgroundColor = .systemBackground
         
         view.addSubview(collectionView)
         collectionView.translatesAutoresizingMaskIntoConstraints = false

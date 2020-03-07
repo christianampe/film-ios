@@ -94,7 +94,19 @@ private extension DiscoverViewModel {
 
 private extension DiscoverViewModel {
     func filter(_ films: [NFLX.Film], query: String) -> [NFLX.Film] {
-        films.filter { $0.contains(substring: query) }
+        films.filter { film in
+            var comparisonString = film.actors.joined()
+            comparisonString += film.director
+            comparisonString += film.locations
+            comparisonString += film.releaseYear
+            comparisonString += film.title
+            
+            if let writers = film.writers {
+                comparisonString += writers.joined()
+            }
+            
+            return comparisonString.lowercased().contains(query.lowercased())
+        }
     }
     
     func group(_ films: [NFLX.Film]) -> [(String, [NFLX.Film])] {

@@ -28,11 +28,25 @@ extension DiscoverFilmViewModel {
     }
     
     func load() {
-        guard let strippedFilmTitle = nflxFilm?.strippedTitle else {
+        guard let film = nflxFilm else {
             return
         }
         
-        operation = OMDB.load(.movies(query: strippedFilmTitle)) { [weak self] result in
+        var strippedTitle = film.title.replacingOccurrences(of: "[^A-Za-z0-9]+", with: " ", options: [.regularExpression]).lowercased()
+        
+        if let seasonIndex = strippedTitle.range(of: "season")?.lowerBound {
+            strippedTitle = String(strippedTitle[..<seasonIndex])
+        }
+        
+        if let pilotIndex = strippedTitle.range(of: "pilot")?.lowerBound {
+            strippedTitle = String(strippedTitle[..<pilotIndex])
+        }
+        
+        if let specialIndex = strippedTitle.range(of: "special")?.lowerBound {
+            strippedTitle = String(strippedTitle[..<specialIndex])
+        }
+        
+        operation = OMDB.load(.movies(query: strippedTitle)) { [weak self] result in
             guard let self = self else {
                 return
             }
