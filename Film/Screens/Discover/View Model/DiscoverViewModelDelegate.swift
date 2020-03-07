@@ -8,5 +8,5 @@
 
 protocol DiscoverViewModelDelegate: class {
     func discoverViewModel(_ discoverViewModel: DiscoverViewModel,
-                           didUpdateCategories categories: [(String, [NFLX.Film])])
+                           didUpdateTheatres theatres: [(String, [NFLX.Film])])
 }

@@ -35,14 +35,14 @@ extension DiscoverViewController {
 
 extension DiscoverViewController: DiscoverViewModelDelegate {
     func discoverViewModel(_ discoverViewModel: DiscoverViewModel,
-                           didUpdateTheatres theatres: [Theatre]) {
+                           didUpdateTheatres theatres: [(String, [NFLX.Film])]) {
         
         DispatchQueue.main.async { [weak self] in
             guard let self = self else {
                 return
             }
             
-            var snapshot = NSDiffableDataSourceSnapshot<Theatre, NFLX.Film>()
+            var snapshot = NSDiffableDataSourceSnapshot<String, NFLX.Film>()
             var shouldAnimateDifferences = true
             
             if theatres.isEmpty {
@@ -50,8 +50,8 @@ extension DiscoverViewController: DiscoverViewModelDelegate {
             }
             
             theatres.forEach { theatre in
-                snapshot.appendSections([theatre])
-                snapshot.appendItems(theatre.films, toSection: theatre)
+                snapshot.appendSections([theatre.0])
+                snapshot.appendItems(theatre.1, toSection: theatre.0)
             }
             
             self.collectionViewDataSource.apply(snapshot,

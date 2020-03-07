@@ -50,8 +50,8 @@ extension DiscoverViewModel {
     func filter(_ query: String) {
         self.query = query
         
-        if let results = cache.object(forKey: query) {
-            publish(results: results)
+        if let theatres = cache.object(forKey: query) {
+            publish(theatres: theatres)
         } else {
             debouncer.handler = analyze
             debouncer.call()
@@ -66,28 +66,28 @@ private extension DiscoverViewModel {
                 return
             }
             
-            var results = [(String, [NFLX.Film])]()
+            var theatres = [(String, [NFLX.Film])]()
             
             if self.query.isEmpty {
-                results = self.group(self.films)
+                theatres = self.group(self.films)
             } else {
                 let filteredFilms = self.filter(self.films, query: self.query)
-                results = self.group(filteredFilms)
+                theatres = self.group(filteredFilms)
             }
             
-            self.cache.insert(results,forKey: self.query)
-            self.publish(results: results)
+            self.cache.insert(theatres,forKey: self.query)
+            self.publish(theatres: theatres)
         }
     }
     
-    func publish(results: [(String, [NFLX.Film])]) {
+    func publish(theatres: [(String, [NFLX.Film])]) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else {
                 return
             }
             
             self.delegate?.discoverViewModel(self,
-                                             didUpdateCategories: results)
+                                             didUpdateTheatres: theatres)
         }
     }
 }
