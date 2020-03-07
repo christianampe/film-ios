@@ -32,6 +32,18 @@ final class DiscoverFilmView: UICollectionViewCell {
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
+    
+    private lazy var label: UILabel = {
+        let label = UILabel()
+        imageView.addSubview(label)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.centerXAnchor.constraint(equalTo: imageView.centerXAnchor).isActive = true
+        label.centerYAnchor.constraint(equalTo: imageView.centerYAnchor).isActive = true
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        label.textColor = .red
+        return label
+    }()
 }
 
 extension DiscoverFilmView {
@@ -39,6 +51,7 @@ extension DiscoverFilmView {
         viewModel = .init()
         viewModel?.delegate = self
         viewModel?.configure(film)
+        label.text = viewModel?.nflxFilm?.title
     }
     
     func load() {
@@ -66,7 +79,8 @@ extension DiscoverFilmView: DiscoverFilmViewModelDelegate {
             switch result {
             case .success(let image):
                 self?.imageView.image = image
-            case .failure:
+            case .failure(let error):
+                print(error)
                 self?.imageView.image = UIImage(named: "nflx.icon")
             }
         }

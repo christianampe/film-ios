@@ -51,8 +51,7 @@ extension DiscoverViewModel {
         self.query = query
         
         if let results = cache.object(forKey: query) {
-            self.delegate?.discoverViewModel(self,
-                                             didUpdateCategories: results)
+            publish(results: results)
         } else {
             debouncer.handler = analyze
             debouncer.call()
@@ -76,8 +75,16 @@ private extension DiscoverViewModel {
                 results = self.group(filteredFilms)
             }
             
-            self.cache.insert(results,
-                              forKey: self.query)
+            self.cache.insert(results,forKey: self.query)
+            self.publish(results: results)
+        }
+    }
+    
+    func publish(results: [(String, [NFLX.Film])]) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
             
             self.delegate?.discoverViewModel(self,
                                              didUpdateCategories: results)

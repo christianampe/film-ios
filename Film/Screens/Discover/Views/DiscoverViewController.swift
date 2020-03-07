@@ -42,6 +42,7 @@ extension DiscoverViewController: DiscoverViewModelDelegate {
         
         if categories.isEmpty {
             shouldAnimateDifferences = false
+            return
         }
         
         categories.forEach { category in
@@ -49,8 +50,8 @@ extension DiscoverViewController: DiscoverViewModelDelegate {
             snapshot.appendItems(category.1, toSection: category.0)
         }
         
-        self.collectionViewDataSource.apply(snapshot,
-                                            animatingDifferences: shouldAnimateDifferences)
+        collectionViewDataSource.apply(snapshot,
+                                       animatingDifferences: shouldAnimateDifferences)
     }
 }
 
