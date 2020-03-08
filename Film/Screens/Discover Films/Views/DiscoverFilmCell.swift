@@ -21,7 +21,7 @@ final class DiscoverFilmCell: UICollectionViewCell {
     
     private var imageView: UIImageView!
     
-    private var viewModel: DiscoverFilmViewModel?
+    private(set) var viewModel: DiscoverFilmViewModel?
 }
 
 extension DiscoverFilmCell {
@@ -71,9 +71,9 @@ private extension DiscoverFilmCell {
         
         imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         
         contentView.addSubview(imageView)
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),

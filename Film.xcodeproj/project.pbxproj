@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		5D245073241452F600BD331D /* DiscoverFilmHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D245072241452F600BD331D /* DiscoverFilmHeader.swift */; };
+		5D245076241487A900BD331D /* FilmDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D245075241487A900BD331D /* FilmDetailViewController.swift */; };
+		5D2450792414892100BD331D /* FilmDetailTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D2450782414892100BD331D /* FilmDetailTileView.swift */; };
 		5D4B399F241316E200A55BEE /* NetworkingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4B399E241316E200A55BEE /* NetworkingError.swift */; };
 		5D4DCFDB240F103300D90A32 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4DCFDA240F103300D90A32 /* AppDelegate.swift */; };
 		5D4DCFDD240F103300D90A32 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4DCFDC240F103300D90A32 /* SceneDelegate.swift */; };
@@ -40,6 +42,8 @@
 
 /* Begin PBXFileReference section */
 		5D245072241452F600BD331D /* DiscoverFilmHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverFilmHeader.swift; sourceTree = "<group>"; };
+		5D245075241487A900BD331D /* FilmDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmDetailViewController.swift; sourceTree = "<group>"; };
+		5D2450782414892100BD331D /* FilmDetailTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmDetailTileView.swift; sourceTree = "<group>"; };
 		5D4B399E241316E200A55BEE /* NetworkingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingError.swift; sourceTree = "<group>"; };
 		5D4DCFD7240F103300D90A32 /* Film.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Film.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D4DCFDA240F103300D90A32 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -83,6 +87,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5D245077241488E900BD331D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5D245075241487A900BD331D /* FilmDetailViewController.swift */,
+				5D2450782414892100BD331D /* FilmDetailTileView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		5D4DCFCE240F103300D90A32 = {
 			isa = PBXGroup;
 			children = (
@@ -192,7 +205,7 @@
 			isa = PBXGroup;
 			children = (
 				5D4DD05E240F11AF00D90A32 /* Entry */,
-				5D4DD05F240F11FB00D90A32 /* Discover */,
+				5D4DD05F240F11FB00D90A32 /* Discover Films */,
 				5D4DD060240F120E00D90A32 /* Film Detail */,
 			);
 			path = Screens;
@@ -208,18 +221,19 @@
 			path = Entry;
 			sourceTree = "<group>";
 		};
-		5D4DD05F240F11FB00D90A32 /* Discover */ = {
+		5D4DD05F240F11FB00D90A32 /* Discover Films */ = {
 			isa = PBXGroup;
 			children = (
 				5D4DD06D240F1B5200D90A32 /* Views */,
 				5D4DD06E240F1B5A00D90A32 /* View Model */,
 			);
-			path = Discover;
+			path = "Discover Films";
 			sourceTree = "<group>";
 		};
 		5D4DD060240F120E00D90A32 /* Film Detail */ = {
 			isa = PBXGroup;
 			children = (
+				5D245077241488E900BD331D /* Views */,
 			);
 			path = "Film Detail";
 			sourceTree = "<group>";
@@ -352,6 +366,7 @@
 			files = (
 				5D4DD05B240F114600D90A32 /* Service.swift in Sources */,
 				5DD6F086240F292E00408A23 /* IMG.swift in Sources */,
+				5D2450792414892100BD331D /* FilmDetailTileView.swift in Sources */,
 				5D245073241452F600BD331D /* DiscoverFilmHeader.swift in Sources */,
 				5D4DD07A240F1CBC00D90A32 /* DiscoverFilmCell.swift in Sources */,
 				5DD6F083240F27EC00408A23 /* StructContainer.swift in Sources */,
@@ -377,6 +392,7 @@
 				5DA0162024119703003E5FDC /* DiscoverFilmViewModelDelegate.swift in Sources */,
 				5DA016242412C1B4003E5FDC /* Debouncer.swift in Sources */,
 				5D4DD055240F113200D90A32 /* OMDB.swift in Sources */,
+				5D245076241487A900BD331D /* FilmDetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

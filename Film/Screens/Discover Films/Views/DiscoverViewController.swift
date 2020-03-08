@@ -67,6 +67,20 @@ extension DiscoverViewController: UICollectionViewDelegate {
         
         (cell as! DiscoverFilmCell).cancelLoading()
     }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        didSelectItemAt indexPath: IndexPath) {
+        
+        guard
+            let cell = collectionView.cellForItem(at: indexPath) as? DiscoverFilmCell,
+            let nflxFilm = cell.viewModel?.nflxFilm,
+            let omdbFilm = cell.viewModel?.omdbFilm
+        else {
+            return
+        }
+        
+        present(FilmDetailViewController(nflxFilm: nflxFilm, omdbFilm: omdbFilm), animated: true)
+    }
 }
 
 extension DiscoverViewController: UISearchBarDelegate {
@@ -91,18 +105,18 @@ private extension DiscoverViewController {
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(44))
         let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
-        header.contentInsets = .init(top: 12, leading: 8, bottom: 0, trailing: 8)
+        header.contentInsets = .init(top: 0, leading: 8, bottom: 0, trailing: 0)
         let section = NSCollectionLayoutSection(group: group)
         section.boundarySupplementaryItems = [header]
         section.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary
         let layout = UICollectionViewCompositionalLayout(section: section)
-
         
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.delegate = self
         collectionView.backgroundColor = .clear
         collectionView.keyboardDismissMode = .interactive
         collectionView.showsVerticalScrollIndicator = false
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.registerCollectionViewCell(DiscoverFilmCell.self)
         collectionView.registerReusableHeaderView(DiscoverFilmHeader.self)
         
@@ -119,15 +133,16 @@ private extension DiscoverViewController {
             return header
         }
         
-        navigationItem.titleView = searchBar
         view.backgroundColor = .systemBackground
+        navigationItem.titleView = searchBar
         
         view.addSubview(collectionView)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
 
         viewModel.delegate = self
         viewModel.fetch()

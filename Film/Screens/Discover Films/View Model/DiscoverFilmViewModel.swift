@@ -53,6 +53,7 @@ extension DiscoverFilmViewModel {
             
             switch result {
             case .success(let film):
+                self.omdbFilm = film
                 self.operation = IMG.load(atURL: film.poster) { [weak self] result in
                     guard let self = self else {
                         return

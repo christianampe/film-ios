@@ -33,9 +33,9 @@ private extension DiscoverFilmHeader {
         label = UILabel()
         label.adjustsFontForContentSizeCategory = true
         label.font = UIFont.preferredFont(forTextStyle: .title3)
+        label.translatesAutoresizingMaskIntoConstraints = false
         
         addSubview(label)
-        label.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
           label.leadingAnchor.constraint(equalTo: leadingAnchor),

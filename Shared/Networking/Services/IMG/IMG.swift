@@ -13,6 +13,7 @@ enum IMG {
 }
 
 extension IMG {
+    @discardableResult
     static func load(atURL imageURL: String,
                      _ completion: @escaping ((Result<UIImage, Error>) -> Void)) -> URLSessionDataTask? {
         
