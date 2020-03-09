@@ -3,6 +3,7 @@
 #### Goal
 * Reflect upon decisions made on my last project [Films] (https://github.com/christianampe/films-ios) (submitted in July of 2019) and make improvements on my findings.
 * Be more pragmatic with my approach to solving problems in code.
+* Spend less than 24 hours designing and implementing (18 hours spent in total)
 
 #### Reflective findings when revisiting the previous project
 * It was an overly complicated project which made the codebase extremely hard to navigate.
