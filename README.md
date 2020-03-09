@@ -9,7 +9,7 @@
 * It was an overly complicated project which made the codebase extremely hard to navigate.
 * The networking logic would make redundant calls whenever a cell came into view as there was no caching logic for `OMDB` calls.
 * The procedural image loading on the cell was buggy due to improper delegate management.
-* The nesting of collection views within table view cells was extremely heavy and resulted in a codebase which was hard to understand.
+* The nesting of collection views within table view cells was extremely heavy and resulted in good, but not great, scroll performance.
 
 #### Improvements made over previous project
 * Reduced lines of code from `3623` to `1637` (55% decrease).
