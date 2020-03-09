@@ -24,10 +24,10 @@
 
 #### Cool discoveries
 * `UICollectionViewCompositionalLayout` is awesome. I decided to take a swing at using this new API as it aligned nicely with the requirements with `Discover` screen design.
-    * It only took 13 lines of code to implement the layout the collection view. Yes, really.
+    * It only took 13 lines of code to implement the layout for the collection view. Yes, really.
 * `UICollectionViewDiffableDataSource` is another awesome addition to the SDK.
     * Snapshots avoid index out of bound errors and eliminate the need for data source lookups (typically).
-    * Out of the box diffing - sign me up. Diffable data source is definitely a keeper.
+    * Out of the box diffing...sign me up! Diffable data source is definitely a keeper.
 
 #### Discussion
 * `MVVM` design pattern utilized as `VIPER` became a bit overkill with an application of this size. 
