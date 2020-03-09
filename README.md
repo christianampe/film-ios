@@ -1,7 +1,7 @@
 # Film
 
 #### Goal
-* Reflect upon decisions made on my last project [Films] (https://github.com/christianampe/films-ios) (submitted in July of 2019) and make improvements on my findings.
+* Reflect upon decisions made on my last project [Films](https://github.com/christianampe/films-ios) (submitted in July of 2019) and make improvements on my findings.
 * Be more pragmatic with my approach to solving problems in code.
 * Spend less than 24 hours designing and implementing (18 hours spent in total)
 
@@ -21,7 +21,7 @@
 * Declared `subdomains` for `HTTP` payloads on the `nflx` and `omdb` endpoints as to not expose all traffic through the application.
 * By utilizing `systemColors`, this new application supports both `light` and `dark` modes.
 
-#### Cool stuff
+#### Cool discoveries
 * `UICollectionViewCompositionalLayout` is awesome. I decided to take a swing at using this new API as it aligned nicely with the requirements with `Discover` screen design.
     * It only took 13 lines of code to implement the layout the collection view. Yes, really.
 * `UICollectionViewDiffableDataSource` is another awesome addition to the SDK.
@@ -33,7 +33,7 @@
 * In-memory `cache` utilized at the service level to avoid reconstructing custom objects.
 * Cache used to store searches to avoid re-indexing the entire response for duplicate queries. 
 
-#### Improvements
+#### Potential improvements
 * `Offline mode` - `Core Data` could have been utilized to persist data to the disk; however, due to time constraints I ended up not implementing this logic.
 * `Better logging` - A custom logger could have come in extremely handy; however, considering the time frame I felt if was better if I omitted it.
 * `Error handling` - Error handling is crucial to a great application; however, it is often the bulk of the development effort.  
