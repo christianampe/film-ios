@@ -42,7 +42,6 @@ final class FilmDetailViewController: UIViewController {
     private var ratingLabel: UILabel!
     private var runtimeLabel: UILabel!
     private var durationLabel: UILabel!
-    private var genreLabel: UILabel!
     private var plotLabel: UILabel!
     private var ctaButton: UIButton!
 }
@@ -116,9 +115,6 @@ private extension FilmDetailViewController {
         durationLabel.font = .systemFont(ofSize: 16, weight: .medium)
         durationLabel.textAlignment = .left
         durationLabel.text = omdbFilm?.runtime ?? "N/A"
-        
-        genreLabel = UILabel()
-        genreLabel.translatesAutoresizingMaskIntoConstraints = false
         
         plotLabel = UILabel()
         plotLabel.translatesAutoresizingMaskIntoConstraints = false
