@@ -10,14 +10,24 @@ import UIKit
 import MapKit
 
 final class FilmDetailViewController: UIViewController {
+    private let nflxFilm: NFLX.Film
+    private let omdbFilm: OMDB.Film
     
     init(nflxFilm: NFLX.Film, omdbFilm: OMDB.Film) {
+        self.nflxFilm = nflxFilm
+        self.omdbFilm = omdbFilm
+        
         super.init(nibName: nil, bundle: nil)
+        
         initialize(nflxFilm: nflxFilm, omdbFilm: omdbFilm)
     }
     
     required init?(coder: NSCoder) {
+        self.nflxFilm = .empty
+        self.omdbFilm = .empty
+        
         super.init(coder: coder)
+        
         initialize(nflxFilm: .empty, omdbFilm: .empty)
     }
     
@@ -49,6 +59,10 @@ private extension FilmDetailViewController {
         
         mapView = MKMapView()
         mapView.translatesAutoresizingMaskIntoConstraints = false
+        mapView.isUserInteractionEnabled = false
+        let location = CLLocationCoordinate2D(latitude: nflxFilm.latitude, longitude: nflxFilm.longitude)
+        let region = MKCoordinateRegion(center: location, latitudinalMeters: 1000, longitudinalMeters: 1000)
+        mapView.setRegion(region, animated: false)
         
         tileView = FilmDetailTileView()
         tileView.translatesAutoresizingMaskIntoConstraints = false
@@ -120,6 +134,7 @@ private extension FilmDetailViewController {
         ctaButton.backgroundColor = .systemGreen
         ctaButton.layer.cornerRadius = 27
         ctaButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .bold)
+        ctaButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(ctaButtonTapped)))
         
         let bottomConstraint = containerView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
         bottomConstraint.priority = .defaultLow
@@ -142,7 +157,7 @@ private extension FilmDetailViewController {
             mapView.topAnchor.constraint(equalTo: containerView.topAnchor),
             mapView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
             mapView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-            mapView.heightAnchor.constraint(equalToConstant: 180)
+            mapView.heightAnchor.constraint(equalToConstant: 240)
         ])
         
         containerView.addSubview(tileView)
@@ -208,7 +223,7 @@ private extension FilmDetailViewController {
         containerView.addSubview(ctaButton)
         NSLayoutConstraint.activate([
             ctaButton.topAnchor.constraint(equalTo: plotLabel.bottomAnchor, constant: 24),
-            ctaButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+            ctaButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -24),
             ctaButton.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
             ctaButton.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.8),
             ctaButton.heightAnchor.constraint(equalToConstant: 54)
@@ -221,5 +236,16 @@ private extension FilmDetailViewController {
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+    }
+}
+
+private extension FilmDetailViewController {
+    @objc func ctaButtonTapped(_ sender: UIButton) {
+        let coordinate = CLLocationCoordinate2D(latitude: nflxFilm.latitude, longitude: nflxFilm.longitude)
+        let mapItem = MKMapItem(placemark: .init(coordinate: coordinate))
+        mapItem.name = nflxFilm.locations
+        let launchOptions = [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving]
+
+        mapItem.openInMaps(launchOptions: launchOptions)
     }
 }
