@@ -136,101 +136,66 @@ private extension FilmDetailViewController {
         ctaButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .bold)
         ctaButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(ctaButtonTapped)))
         
+        scrollView.addSubview(containerView)
+        containerView.addSubview(mapView)
+        containerView.addSubview(tileView)
+        containerView.addSubview(scoreLabel)
+        containerView.addSubview(titleLabel)
+        containerView.addSubview(ratingLabel)
+        containerView.addSubview(releasedLabel)
+        containerView.addSubview(releaseYearLabel)
+        containerView.addSubview(runtimeLabel)
+        containerView.addSubview(durationLabel)
+        containerView.addSubview(plotLabel)
+        containerView.addSubview(ctaButton)
+        view.addSubview(scrollView)
+        
         let bottomConstraint = containerView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
         bottomConstraint.priority = .defaultLow
         
         let centerYConstraint = containerView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor)
         centerYConstraint.priority = .defaultLow
         
-        scrollView.addSubview(containerView)
         NSLayoutConstraint.activate([
+            bottomConstraint,
+            centerYConstraint,
             containerView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             containerView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
             containerView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             containerView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-            bottomConstraint,
-            centerYConstraint
-        ])
-        
-        containerView.addSubview(mapView)
-        NSLayoutConstraint.activate([
             mapView.topAnchor.constraint(equalTo: containerView.topAnchor),
             mapView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
             mapView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-            mapView.heightAnchor.constraint(equalToConstant: 240)
-        ])
-        
-        containerView.addSubview(tileView)
-        NSLayoutConstraint.activate([
+            mapView.heightAnchor.constraint(equalToConstant: 240),
             tileView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
             tileView.centerYAnchor.constraint(equalTo: mapView.bottomAnchor),
             tileView.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.7),
-            tileView.heightAnchor.constraint(equalTo: tileView.widthAnchor)
-        ])
-        
-        containerView.addSubview(scoreLabel)
-        NSLayoutConstraint.activate([
+            tileView.heightAnchor.constraint(equalTo: tileView.widthAnchor),
             scoreLabel.centerXAnchor.constraint(equalTo: tileView.centerXAnchor),
             scoreLabel.centerYAnchor.constraint(equalTo: tileView.bottomAnchor),
             scoreLabel.widthAnchor.constraint(equalTo: tileView.widthAnchor, multiplier: 0.4),
-            scoreLabel.heightAnchor.constraint(equalToConstant: 36)
-        ])
-        
-        containerView.addSubview(titleLabel)
-        NSLayoutConstraint.activate([
+            scoreLabel.heightAnchor.constraint(equalToConstant: 36),
             titleLabel.topAnchor.constraint(equalTo: scoreLabel.bottomAnchor, constant: 24),
             titleLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 24),
-            titleLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -24)
-        ])
-        
-        containerView.addSubview(ratingLabel)
-        NSLayoutConstraint.activate([
+            titleLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -24),
             ratingLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
-            ratingLabel.centerXAnchor.constraint(equalTo: containerView.centerXAnchor)
-        ])
-        
-        containerView.addSubview(releasedLabel)
-        NSLayoutConstraint.activate([
+            ratingLabel.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
             releasedLabel.topAnchor.constraint(equalTo: ratingLabel.bottomAnchor, constant: 12),
             releasedLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 24),
-        ])
-        
-        containerView.addSubview(releaseYearLabel)
-        NSLayoutConstraint.activate([
             releaseYearLabel.topAnchor.constraint(equalTo: releasedLabel.bottomAnchor),
             releaseYearLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 24),
-        ])
-        
-        containerView.addSubview(runtimeLabel)
-        NSLayoutConstraint.activate([
             runtimeLabel.topAnchor.constraint(equalTo: ratingLabel.bottomAnchor, constant: 12),
-            runtimeLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -24)
-        ])
-        
-        containerView.addSubview(durationLabel)
-        NSLayoutConstraint.activate([
+            runtimeLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -24),
             durationLabel.topAnchor.constraint(equalTo: runtimeLabel.bottomAnchor),
-            durationLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -24)
-        ])
-        
-        containerView.addSubview(plotLabel)
-        NSLayoutConstraint.activate([
+            durationLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -24),
             plotLabel.topAnchor.constraint(equalTo: releaseYearLabel.bottomAnchor, constant: 24),
             plotLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 24),
-            plotLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -24)
-        ])
-        
-        containerView.addSubview(ctaButton)
-        NSLayoutConstraint.activate([
+            plotLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -24),
             ctaButton.topAnchor.constraint(equalTo: plotLabel.bottomAnchor, constant: 24),
             ctaButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -24),
             ctaButton.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
             ctaButton.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.8),
-            ctaButton.heightAnchor.constraint(equalToConstant: 54)
-        ])
-        
-        view.addSubview(scrollView)
-        NSLayoutConstraint.activate([
+            ctaButton.heightAnchor.constraint(equalToConstant: 54),
             scrollView.topAnchor.constraint(equalTo: view.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),

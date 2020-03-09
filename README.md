@@ -4,11 +4,12 @@
 * Reflect upon decisions made on my last project [Films] (https://github.com/christianampe/films-ios) (submitted in July of 2019) and make improvements on my findings.
 
 #### Reflective Findings
-* Was an overly complicated project which made the codebase extremely hard to navigate
+* Was an overly complicated project which made the codebase extremely hard to navigate.
 
 #### Improvements
-* Reduced lines of code from 3623 to 1592 ( 56% decrease)
-* 
+* Reduced lines of code from 3623 to 1595 (56% decrease).
+    * Project migrated from using storyboard to now being purely programmatic.
+    * Adjusting for autolayout and setup code which was previously managed in Storyboards, the number of lines is further reduced to 1278 (65% decrease).
 
 #### Discussion
 * `VIPER`/`MVVM` hybrid design pattern utilized in the home screen.

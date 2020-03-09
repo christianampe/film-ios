@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 final class DiscoverViewController: UIViewController {
     private let viewModel: DiscoverViewModel
@@ -62,6 +63,14 @@ extension DiscoverViewController: DiscoverViewModelDelegate {
 
 extension DiscoverViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView,
+                        willDisplaySupplementaryView view: UICollectionReusableView,
+                        forElementKind elementKind: String,
+                        at indexPath: IndexPath) {
+        
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
                         didEndDisplaying cell: UICollectionViewCell,
                         forItemAt indexPath: IndexPath) {
         
@@ -78,7 +87,9 @@ extension DiscoverViewController: UICollectionViewDelegate {
             return
         }
         
-        present(FilmDetailViewController(nflxFilm: nflxFilm, omdbFilm: cell.viewModel?.omdbFilm), animated: true)
+        present(FilmDetailViewController(nflxFilm: nflxFilm,
+                                         omdbFilm: cell.viewModel?.omdbFilm),
+                animated: true)
     }
 }
 
@@ -92,6 +103,10 @@ extension DiscoverViewController: UISearchBarDelegate {
 
 private extension DiscoverViewController {
     func initialize() {
+        Location.shared.start()
+        
+        view.backgroundColor = .systemBackground
+        
         searchBar = UISearchBar()
         searchBar.tintColor = .systemGray3
         searchBar.placeholder = "Title, actor, director, ect..."
@@ -102,7 +117,7 @@ private extension DiscoverViewController {
         item.contentInsets = .init(top: 0, leading: 8, bottom: 0, trailing: 0)
         let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(148), heightDimension: .absolute(224))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(44))
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(80))
         let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
         header.contentInsets = .init(top: 0, leading: 8, bottom: 0, trailing: 0)
         let section = NSCollectionLayoutSection(group: group)
@@ -138,11 +153,10 @@ private extension DiscoverViewController {
             }
             
             let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, for: indexPath) as DiscoverFilmHeader
-            header.setTitle(film.locations)
+            header.configure(withFilm: film)
             return header
         }
         
-        view.backgroundColor = .systemBackground
         navigationItem.titleView = searchBar
         
         view.addSubview(collectionView)
