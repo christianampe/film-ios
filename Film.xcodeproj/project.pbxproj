@@ -10,6 +10,7 @@
 		5D245073241452F600BD331D /* DiscoverFilmHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D245072241452F600BD331D /* DiscoverFilmHeader.swift */; };
 		5D245076241487A900BD331D /* FilmDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D245075241487A900BD331D /* FilmDetailViewController.swift */; };
 		5D2450792414892100BD331D /* FilmDetailTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D2450782414892100BD331D /* FilmDetailTileView.swift */; };
+		5D24507E2416186200BD331D /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 5D24507D2416186200BD331D /* README.md */; };
 		5D4B399F241316E200A55BEE /* NetworkingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4B399E241316E200A55BEE /* NetworkingError.swift */; };
 		5D4DCFDB240F103300D90A32 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4DCFDA240F103300D90A32 /* AppDelegate.swift */; };
 		5D4DCFDD240F103300D90A32 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4DCFDC240F103300D90A32 /* SceneDelegate.swift */; };
@@ -44,6 +45,7 @@
 		5D245072241452F600BD331D /* DiscoverFilmHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverFilmHeader.swift; sourceTree = "<group>"; };
 		5D245075241487A900BD331D /* FilmDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmDetailViewController.swift; sourceTree = "<group>"; };
 		5D2450782414892100BD331D /* FilmDetailTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmDetailTileView.swift; sourceTree = "<group>"; };
+		5D24507D2416186200BD331D /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		5D4B399E241316E200A55BEE /* NetworkingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingError.swift; sourceTree = "<group>"; };
 		5D4DCFD7240F103300D90A32 /* Film.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Film.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D4DCFDA240F103300D90A32 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 		5D4DCFCE240F103300D90A32 = {
 			isa = PBXGroup;
 			children = (
+				5D24507D2416186200BD331D /* README.md */,
 				5D4DCFEE240F104200D90A32 /* Shared */,
 				5D4DCFD9240F103300D90A32 /* Film */,
 				5D4DCFD8240F103300D90A32 /* Products */,
@@ -352,6 +355,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D24507E2416186200BD331D /* README.md in Resources */,
 				5D4DCFE7240F103500D90A32 /* LaunchScreen.storyboard in Resources */,
 				5D4DCFE4240F103500D90A32 /* Assets.xcassets in Resources */,
 			);
