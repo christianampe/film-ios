@@ -22,6 +22,7 @@ final class FilmDetailViewController: UIViewController {
     }
     
     private var scrollView: UIScrollView!
+    private var containerView: UIView!
     private var mapView: MKMapView!
     private var tileView: FilmDetailTileView!
     private var ratingLabel: UILabel!
@@ -36,11 +37,16 @@ private extension FilmDetailViewController {
         scrollView.backgroundColor = .systemBackground
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         
+        containerView = UIView()
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        
         mapView = MKMapView()
         mapView.translatesAutoresizingMaskIntoConstraints = false
         
         tileView = FilmDetailTileView()
         tileView.configure(withFilmLocation: location, imageURL: imageURL)
+        tileView.clipsToBounds = true
+        tileView.layer.cornerRadius = 5
         tileView.translatesAutoresizingMaskIntoConstraints = false
         
         ratingLabel = UILabel()
@@ -51,24 +57,63 @@ private extension FilmDetailViewController {
         
         plotLabel = UILabel()
         plotLabel.translatesAutoresizingMaskIntoConstraints = false
+        plotLabel.numberOfLines = 0
+        plotLabel.text = "popopopopoppppopopopopopopopopopopo popopopopoppppopopopopopopopopopopo popopopopoppppopopopopopopopopopopo popopopopoppppopopopopopopopopopopo popopopopoppppopopopopopopopopopopo popopopopoppppopopopopopopopopopopo"
         
         ctaButton = UIButton(type: .system)
         ctaButton.translatesAutoresizingMaskIntoConstraints = false
+        ctaButton.clipsToBounds = true
+        ctaButton.tintColor = .white
+        ctaButton.setTitle("Get Directions", for: .normal)
+        ctaButton.backgroundColor = .systemGreen
+        ctaButton.layer.cornerRadius = 27
         
-        scrollView.addSubview(mapView)
+        let bottomConstraint = containerView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
+        bottomConstraint.priority = .defaultLow
+        
+        let centerYConstraint = containerView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor)
+        centerYConstraint.priority = .defaultLow
+        
+        scrollView.addSubview(containerView)
         NSLayoutConstraint.activate([
-            mapView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            mapView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            mapView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-            mapView.heightAnchor.constraint(equalTo: scrollView.heightAnchor, multiplier: 0.3)
+            containerView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            containerView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            containerView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            containerView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            bottomConstraint,
+            centerYConstraint
         ])
         
-        scrollView.addSubview(tileView)
+        containerView.addSubview(mapView)
         NSLayoutConstraint.activate([
-            tileView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            mapView.topAnchor.constraint(equalTo: containerView.topAnchor),
+            mapView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            mapView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            mapView.heightAnchor.constraint(equalToConstant: 240)
+        ])
+        
+        containerView.addSubview(tileView)
+        NSLayoutConstraint.activate([
+            tileView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
             tileView.centerYAnchor.constraint(equalTo: mapView.bottomAnchor),
-            tileView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-            tileView.heightAnchor.constraint(equalTo: scrollView.heightAnchor, multiplier: 0.3)
+            tileView.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.6),
+            tileView.heightAnchor.constraint(equalTo: tileView.widthAnchor)
+        ])
+        
+        containerView.addSubview(plotLabel)
+        NSLayoutConstraint.activate([
+            plotLabel.topAnchor.constraint(equalTo: tileView.bottomAnchor, constant: 24),
+            plotLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            plotLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor)
+        ])
+        
+        containerView.addSubview(ctaButton)
+        NSLayoutConstraint.activate([
+            ctaButton.topAnchor.constraint(equalTo: plotLabel.bottomAnchor, constant: 24),
+            ctaButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -24),
+            ctaButton.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+            ctaButton.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.8),
+            ctaButton.heightAnchor.constraint(equalToConstant: 54)
         ])
         
         view.addSubview(scrollView)

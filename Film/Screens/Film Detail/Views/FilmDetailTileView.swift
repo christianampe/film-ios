@@ -25,13 +25,13 @@ final class FilmDetailTileView: UIView {
 
 extension FilmDetailTileView {
     func configure(withFilmLocation location: String, imageURL: String) {
-        locationLabel.text = location
+        locationLabel.text = "📍 \(location)"
         
         IMG.load(atURL: imageURL) { [weak self] result in
             guard let self = self else {
                 return
             }
-            
+
             switch result {
             case .success(let image):
                 self.albumArt.image = image
@@ -44,8 +44,13 @@ extension FilmDetailTileView {
 
 private extension FilmDetailTileView {
     func initialize() {
+        backgroundColor = .systemBackground
+        
         locationLabel = UILabel()
         locationLabel.textAlignment = .center
+        locationLabel.numberOfLines = 0
+        locationLabel.adjustsFontSizeToFitWidth = true
+        locationLabel.font = .systemFont(ofSize: 10, weight: .medium)
         locationLabel.translatesAutoresizingMaskIntoConstraints = false
         
         albumArt = UIImageView()
@@ -53,15 +58,15 @@ private extension FilmDetailTileView {
         
         addSubview(locationLabel)
         NSLayoutConstraint.activate([
-            locationLabel.topAnchor.constraint(equalTo: topAnchor),
-            locationLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
-            locationLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
+            locationLabel.topAnchor.constraint(equalTo: topAnchor, constant: 4),
+            locationLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+            locationLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8)
         ])
         
         addSubview(albumArt)
         albumArt.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            albumArt.topAnchor.constraint(equalTo: locationLabel.topAnchor),
+            albumArt.topAnchor.constraint(equalTo: locationLabel.bottomAnchor, constant: 4),
             albumArt.leadingAnchor.constraint(equalTo: leadingAnchor),
             albumArt.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
