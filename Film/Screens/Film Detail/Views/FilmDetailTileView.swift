@@ -50,7 +50,7 @@ private extension FilmDetailTileView {
         locationLabel.textAlignment = .center
         locationLabel.numberOfLines = 0
         locationLabel.adjustsFontSizeToFitWidth = true
-        locationLabel.font = .systemFont(ofSize: 10, weight: .medium)
+        locationLabel.font = .systemFont(ofSize: 12, weight: .medium)
         locationLabel.translatesAutoresizingMaskIntoConstraints = false
         
         albumArt = UIImageView()

@@ -33,3 +33,14 @@ extension OMDB.Film {
         case imdbVotes
     }
 }
+
+extension OMDB.Film {
+    static let empty = OMDB.Film(rated: "",
+                                 runtime: "",
+                                 genre: "",
+                                 plot: "",
+                                 awards: "",
+                                 poster: "",
+                                 imdbRating: "",
+                                 imdbVotes: "")
+}
