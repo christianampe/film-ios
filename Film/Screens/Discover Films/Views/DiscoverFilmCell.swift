@@ -79,7 +79,7 @@ private extension DiscoverFilmCell {
         titleContainerView = UIView()
         titleContainerView.translatesAutoresizingMaskIntoConstraints = false
         titleContainerView.backgroundColor = .systemBackground
-        titleContainerView.alpha = 0.9
+        titleContainerView.alpha = 0.95
         
         titleLabel = UILabel()
         titleLabel.backgroundColor = .clear
@@ -98,10 +98,10 @@ private extension DiscoverFilmCell {
             titleContainerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             titleContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             titleContainerView.bottomAnchor.constraint(equalTo: imageView.bottomAnchor),
-            titleLabel.topAnchor.constraint(equalTo: titleContainerView.topAnchor, constant: 4),
-            titleLabel.bottomAnchor.constraint(equalTo: titleContainerView.bottomAnchor, constant: -4),
-            titleLabel.leadingAnchor.constraint(equalTo: titleContainerView.leadingAnchor, constant: 2),
-            titleLabel.trailingAnchor.constraint(equalTo: titleContainerView.trailingAnchor, constant: -2),
+            titleLabel.topAnchor.constraint(equalTo: titleContainerView.topAnchor, constant: 8),
+            titleLabel.bottomAnchor.constraint(equalTo: titleContainerView.bottomAnchor, constant: -8),
+            titleLabel.leadingAnchor.constraint(equalTo: titleContainerView.leadingAnchor, constant: 4),
+            titleLabel.trailingAnchor.constraint(equalTo: titleContainerView.trailingAnchor, constant: -4),
         ])
     }
 }
