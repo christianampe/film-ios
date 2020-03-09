@@ -51,24 +51,22 @@ private extension FilmDetailTileView {
         backgroundColor = .systemBackground
         
         locationLabel = UILabel()
+        locationLabel.translatesAutoresizingMaskIntoConstraints = false
         locationLabel.textAlignment = .center
         locationLabel.adjustsFontSizeToFitWidth = true
         locationLabel.font = .systemFont(ofSize: 12, weight: .medium)
-        locationLabel.translatesAutoresizingMaskIntoConstraints = false
         
         albumArt = UIImageView()
+        albumArt.translatesAutoresizingMaskIntoConstraints = false
         albumArt.contentMode = .scaleAspectFill
         
         addSubview(locationLabel)
+        addSubview(albumArt)
+        
         NSLayoutConstraint.activate([
             locationLabel.topAnchor.constraint(equalTo: topAnchor, constant: 4),
             locationLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
-            locationLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8)
-        ])
-        
-        addSubview(albumArt)
-        albumArt.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
+            locationLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
             albumArt.topAnchor.constraint(equalTo: locationLabel.bottomAnchor, constant: 4),
             albumArt.leadingAnchor.constraint(equalTo: leadingAnchor),
             albumArt.trailingAnchor.constraint(equalTo: trailingAnchor)

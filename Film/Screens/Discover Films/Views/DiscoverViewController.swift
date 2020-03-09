@@ -160,6 +160,7 @@ private extension DiscoverViewController {
         navigationItem.titleView = searchBar
         
         view.addSubview(collectionView)
+        
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: view.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
