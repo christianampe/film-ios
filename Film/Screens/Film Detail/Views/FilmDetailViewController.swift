@@ -11,9 +11,9 @@ import MapKit
 
 final class FilmDetailViewController: UIViewController {
     private let nflxFilm: NFLX.Film
-    private let omdbFilm: OMDB.Film
+    private let omdbFilm: OMDB.Film?
     
-    init(nflxFilm: NFLX.Film, omdbFilm: OMDB.Film) {
+    init(nflxFilm: NFLX.Film, omdbFilm: OMDB.Film?) {
         self.nflxFilm = nflxFilm
         self.omdbFilm = omdbFilm
         
@@ -48,7 +48,7 @@ final class FilmDetailViewController: UIViewController {
 }
 
 private extension FilmDetailViewController {
-    func initialize(nflxFilm: NFLX.Film, omdbFilm: OMDB.Film) {
+    func initialize(nflxFilm: NFLX.Film, omdbFilm: OMDB.Film?) {
         scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.showsVerticalScrollIndicator = false
@@ -66,7 +66,7 @@ private extension FilmDetailViewController {
         
         tileView = FilmDetailTileView()
         tileView.translatesAutoresizingMaskIntoConstraints = false
-        tileView.configure(withFilmLocation: nflxFilm.locations, imageURL: omdbFilm.poster)
+        tileView.configure(withFilmLocation: nflxFilm.locations, imageURL: omdbFilm?.poster)
         tileView.clipsToBounds = true
         tileView.layer.cornerRadius = 5
         
@@ -80,7 +80,7 @@ private extension FilmDetailViewController {
         scoreLabel.layer.borderColor = UIColor.systemGreen.cgColor
         scoreLabel.layer.borderWidth = 1
         scoreLabel.layer.cornerRadius = 18
-        scoreLabel.text = "\(omdbFilm.imdbRating) / 10"
+        scoreLabel.text = "\(omdbFilm?.imdbRating ?? "-") / 10"
         
         releasedLabel = UILabel()
         releasedLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -103,7 +103,7 @@ private extension FilmDetailViewController {
         ratingLabel.translatesAutoresizingMaskIntoConstraints = false
         ratingLabel.font = .systemFont(ofSize: 18, weight: .bold)
         ratingLabel.textAlignment = .center
-        ratingLabel.text = omdbFilm.rated
+        ratingLabel.text = omdbFilm?.rated ?? "N/A"
         
         runtimeLabel = UILabel()
         runtimeLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -115,7 +115,7 @@ private extension FilmDetailViewController {
         durationLabel.translatesAutoresizingMaskIntoConstraints = false
         durationLabel.font = .systemFont(ofSize: 16, weight: .medium)
         durationLabel.textAlignment = .left
-        durationLabel.text = omdbFilm.runtime
+        durationLabel.text = omdbFilm?.runtime ?? "N/A"
         
         genreLabel = UILabel()
         genreLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -124,7 +124,7 @@ private extension FilmDetailViewController {
         plotLabel.translatesAutoresizingMaskIntoConstraints = false
         plotLabel.font = .systemFont(ofSize: 14, weight: .medium)
         plotLabel.numberOfLines = 0
-        plotLabel.text = "Plot\n\(omdbFilm.plot)"
+        plotLabel.text = "Plot\n\(omdbFilm?.plot ?? "N/A")"
 
         ctaButton = UIButton(type: .system)
         ctaButton.translatesAutoresizingMaskIntoConstraints = false

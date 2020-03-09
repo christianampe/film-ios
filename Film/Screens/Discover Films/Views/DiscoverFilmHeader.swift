@@ -32,7 +32,7 @@ private extension DiscoverFilmHeader {
     func initialize() {
         label = UILabel()
         label.adjustsFontForContentSizeCategory = true
-        label.font = UIFont.preferredFont(forTextStyle: .title3)
+        label.font = .systemFont(ofSize: 18, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         
         addSubview(label)

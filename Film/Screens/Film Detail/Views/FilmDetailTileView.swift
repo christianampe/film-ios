@@ -24,20 +24,24 @@ final class FilmDetailTileView: UIView {
 }
 
 extension FilmDetailTileView {
-    func configure(withFilmLocation location: String, imageURL: String) {
+    func configure(withFilmLocation location: String, imageURL: String?) {
         locationLabel.text = "📍 \(location)"
         
-        IMG.load(atURL: imageURL) { [weak self] result in
-            guard let self = self else {
-                return
-            }
+        if let imageURL = imageURL {
+            IMG.load(atURL: imageURL) { [weak self] result in
+                guard let self = self else {
+                    return
+                }
 
-            switch result {
-            case .success(let image):
-                self.albumArt.image = image
-            case .failure:
-                break
+                switch result {
+                case .success(let image):
+                    self.albumArt.image = image
+                case .failure:
+                    self.albumArt.image = UIImage(named: "nflx.icon")
+                }
             }
+        } else {
+            self.albumArt.image = UIImage(named: "nflx.icon")
         }
     }
 }
@@ -48,7 +52,6 @@ private extension FilmDetailTileView {
         
         locationLabel = UILabel()
         locationLabel.textAlignment = .center
-        locationLabel.numberOfLines = 0
         locationLabel.adjustsFontSizeToFitWidth = true
         locationLabel.font = .systemFont(ofSize: 12, weight: .medium)
         locationLabel.translatesAutoresizingMaskIntoConstraints = false
