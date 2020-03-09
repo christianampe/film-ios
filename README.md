@@ -7,8 +7,8 @@
 
 #### Reflective findings when revisiting the previous project
 * It was an overly complicated project which made the codebase extremely hard to navigate.
-* My networking logic was execute redundantly whenever a cell came into view as I had no caching logic for `OMDB` calls.
-* My procedural image loading on the cell was buggy and was not nilling out the images correctly on reuse.
+* The networking logic would make redundant calls whenever a cell came into view as there was no caching logic for `OMDB` calls.
+* The procedural image loading on the cell was buggy due to improper delegate management.
 * The nesting of collection views within table view cells was extremely heavy and resulted in a codebase which was hard to understand.
 
 #### Improvements made over previous project
