@@ -12,9 +12,10 @@
 * The nesting of collection views within table view cells was extremely heavy and resulted in good, but not great, scroll performance.
 
 #### Improvements made over previous project
-* Reduced lines of code from `3623` to `1637` (55% decrease).
+* Reduced lines of code from `3623` to `1633` (55% decrease).
     * Project migrated from using `Storyboard` to now being purely `programmatic`.
     * Adjusting for autolayout, setup, and styling code which was previously managed in Storyboards, the number of lines is further reduced to `1278` (65% decrease).
+    * `$ find . \( -iname \*.swift \) -exec wc -l '{}' \+`
 * `Sorting logic` has been replaced with a dynamic debounced search query which has a custom cache backing to avoid redundant filters.
 * `Cell dequeuing` previously caused issues by not retaining scroll position offset which have since been fixed.
 * The detail screen is more informative and slightly cleaner.
