@@ -36,6 +36,6 @@
 
 #### Potential improvements
 * `Offline mode` - `Core Data` could have been utilized to persist data to the disk; however, due to time constraints I ended up not implementing this logic.
-* `Better logging` - A custom logger could have come in extremely handy; however, considering the time frame I felt if was better if I omitted it.
+* `Better logging` - A custom logger could have aided in identifying erroneous behaviors; however, considering the time frame I felt if was better if I omitted it.
 * `Error handling` - Error handling is crucial to a great application; however, it is often the bulk of the development effort.  
     * Errors in this project were handled by placeholders and fake data.
