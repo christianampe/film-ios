@@ -109,7 +109,7 @@ private extension DiscoverViewController {
         
         searchBar = UISearchBar()
         searchBar.tintColor = .systemGray3
-        searchBar.placeholder = "Title, actor, director, ect..."
+        searchBar.placeholder = "Title, actor, director, etc..."
         searchBar.delegate = self
         
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
