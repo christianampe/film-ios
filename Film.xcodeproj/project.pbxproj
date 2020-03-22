@@ -26,7 +26,6 @@
 		5D4DD055240F113200D90A32 /* OMDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4DD052240F113200D90A32 /* OMDB.swift */; };
 		5D4DD056240F113200D90A32 /* OMDBFilm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4DD053240F113200D90A32 /* OMDBFilm.swift */; };
 		5D4DD058240F113D00D90A32 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4DD057240F113D00D90A32 /* Networking.swift */; };
-		5D4DD05B240F114600D90A32 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4DD059240F114600D90A32 /* Service.swift */; };
 		5D4DD05C240F114600D90A32 /* Target.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4DD05A240F114600D90A32 /* Target.swift */; };
 		5D4DD063240F124800D90A32 /* DiscoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4DD062240F124800D90A32 /* DiscoverViewController.swift */; };
 		5D4DD069240F148500D90A32 /* UICollectionView++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4DD068240F148500D90A32 /* UICollectionView++.swift */; };
@@ -64,7 +63,6 @@
 		5D4DD052240F113200D90A32 /* OMDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OMDB.swift; sourceTree = "<group>"; };
 		5D4DD053240F113200D90A32 /* OMDBFilm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OMDBFilm.swift; sourceTree = "<group>"; };
 		5D4DD057240F113D00D90A32 /* Networking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
-		5D4DD059240F114600D90A32 /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		5D4DD05A240F114600D90A32 /* Target.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Target.swift; sourceTree = "<group>"; };
 		5D4DD062240F124800D90A32 /* DiscoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverViewController.swift; sourceTree = "<group>"; };
 		5D4DD068240F148500D90A32 /* UICollectionView++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView++.swift"; sourceTree = "<group>"; };
@@ -162,7 +160,6 @@
 			isa = PBXGroup;
 			children = (
 				5D4DD05A240F114600D90A32 /* Target.swift */,
-				5D4DD059240F114600D90A32 /* Service.swift */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -371,7 +368,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5D4DD05B240F114600D90A32 /* Service.swift in Sources */,
 				5DD6F086240F292E00408A23 /* IMG.swift in Sources */,
 				5D2450792414892100BD331D /* FilmDetailTileView.swift in Sources */,
 				5D245073241452F600BD331D /* DiscoverFilmHeader.swift in Sources */,
