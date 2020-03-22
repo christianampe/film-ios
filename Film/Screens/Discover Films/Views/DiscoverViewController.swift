@@ -94,8 +94,6 @@ extension DiscoverViewController: UISearchBarDelegate {
 
 private extension DiscoverViewController {
     func initialize() {
-        Location.shared.start()
-        
         view.backgroundColor = .systemBackground
         
         searchBar.tintColor = .systemGray3
@@ -124,6 +122,8 @@ private extension DiscoverViewController {
         
         viewModel.delegate = self
         viewModel.fetch()
+        
+        Location.shared.start()
     }
 }
 

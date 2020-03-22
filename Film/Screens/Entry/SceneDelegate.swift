@@ -21,20 +21,13 @@ extension SceneDelegate {
             return
         }
         
-        switch windowScene.screen.traitCollection.userInterfaceIdiom {
-        case .phone:
-            let discoverViewController = DiscoverViewController()
-            let navigationController = UINavigationController(rootViewController: discoverViewController)
-            
-            let window = UIWindow(windowScene: windowScene)
-            window.rootViewController = navigationController
-            window.makeKeyAndVisible()
-            
-            self.window = window
-            
-        default:
-            break
-            
-        }
+        let discoverViewController = DiscoverViewController()
+        let navigationController = UINavigationController(rootViewController: discoverViewController)
+        
+        let window = UIWindow(windowScene: windowScene)
+        window.rootViewController = navigationController
+        window.makeKeyAndVisible()
+        
+        self.window = window
     }   
 }

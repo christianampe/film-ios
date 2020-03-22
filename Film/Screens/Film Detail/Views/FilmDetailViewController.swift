@@ -192,8 +192,8 @@ private extension FilmDetailViewController {
         let coordinate = CLLocationCoordinate2D(latitude: nflxFilm.latitude, longitude: nflxFilm.longitude)
         let mapItem = MKMapItem(placemark: .init(coordinate: coordinate))
         mapItem.name = nflxFilm.locations
+        
         let launchOptions = [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving]
-
         mapItem.openInMaps(launchOptions: launchOptions)
     }
 }
