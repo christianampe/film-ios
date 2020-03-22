@@ -19,8 +19,8 @@ final class FilmDetailTileView: UIView {
         initialize()
     }
     
-    private var locationLabel: UILabel!
-    private var albumArt: UIImageView!
+    private lazy var locationLabel = UILabel()
+    private lazy var albumArt = UIImageView()
 }
 
 extension FilmDetailTileView {
@@ -52,13 +52,11 @@ private extension FilmDetailTileView {
     func initialize() {
         backgroundColor = .systemBackground
         
-        locationLabel = UILabel()
         locationLabel.translatesAutoresizingMaskIntoConstraints = false
         locationLabel.textAlignment = .center
         locationLabel.adjustsFontSizeToFitWidth = true
         locationLabel.font = .systemFont(ofSize: 12, weight: .medium)
         
-        albumArt = UIImageView()
         albumArt.translatesAutoresizingMaskIntoConstraints = false
         albumArt.contentMode = .scaleAspectFill
         

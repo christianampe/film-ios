@@ -31,45 +31,40 @@ final class FilmDetailViewController: UIViewController {
         initialize(nflxFilm: .empty, omdbFilm: .empty)
     }
     
-    private var scrollView: UIScrollView!
-    private var containerView: UIView!
-    private var mapView: MKMapView!
-    private var tileView: FilmDetailTileView!
-    private var scoreLabel: UILabel!
-    private var releasedLabel: UILabel!
-    private var releaseYearLabel: UILabel!
-    private var titleLabel: UILabel!
-    private var ratingLabel: UILabel!
-    private var runtimeLabel: UILabel!
-    private var durationLabel: UILabel!
-    private var plotLabel: UILabel!
-    private var ctaButton: UIButton!
+    private lazy var scrollView = UIScrollView()
+    private lazy var containerView = UIView()
+    private lazy var mapView = MKMapView()
+    private lazy var tileView = FilmDetailTileView()
+    private lazy var scoreLabel = UILabel()
+    private lazy var releasedLabel = UILabel()
+    private lazy var releaseYearLabel = UILabel()
+    private lazy var titleLabel = UILabel()
+    private lazy var ratingLabel = UILabel()
+    private lazy var runtimeLabel = UILabel()
+    private lazy var durationLabel = UILabel()
+    private lazy var plotLabel = UILabel()
+    private lazy var ctaButton = UIButton(type: .system)
 }
 
 private extension FilmDetailViewController {
     func initialize(nflxFilm: NFLX.Film, omdbFilm: OMDB.Film?) {
-        scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.showsVerticalScrollIndicator = false
         scrollView.backgroundColor = .systemBackground
         
-        containerView = UIView()
         containerView.translatesAutoresizingMaskIntoConstraints = false
         
-        mapView = MKMapView()
         mapView.translatesAutoresizingMaskIntoConstraints = false
         mapView.isUserInteractionEnabled = false
         let location = CLLocationCoordinate2D(latitude: nflxFilm.latitude, longitude: nflxFilm.longitude)
         let region = MKCoordinateRegion(center: location, latitudinalMeters: 1000, longitudinalMeters: 1000)
         mapView.setRegion(region, animated: false)
         
-        tileView = FilmDetailTileView()
         tileView.translatesAutoresizingMaskIntoConstraints = false
         tileView.configure(withFilmLocation: nflxFilm.locations, imageURL: omdbFilm?.poster)
         tileView.clipsToBounds = true
         tileView.layer.cornerRadius = 5
         
-        scoreLabel = UILabel()
         scoreLabel.translatesAutoresizingMaskIntoConstraints = false
         scoreLabel.clipsToBounds = true
         scoreLabel.textAlignment = .center
@@ -81,48 +76,40 @@ private extension FilmDetailViewController {
         scoreLabel.layer.cornerRadius = 18
         scoreLabel.text = "\(omdbFilm?.imdbRating ?? "-") / 10"
         
-        releasedLabel = UILabel()
         releasedLabel.translatesAutoresizingMaskIntoConstraints = false
         releasedLabel.font = .systemFont(ofSize: 16, weight: .bold)
         releasedLabel.text = "Released"
         
-        releaseYearLabel = UILabel()
         releaseYearLabel.translatesAutoresizingMaskIntoConstraints = false
         releaseYearLabel.font = .systemFont(ofSize: 16, weight: .medium)
         releaseYearLabel.text = nflxFilm.releaseYear
         
-        titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.font = .systemFont(ofSize: 36, weight: .bold)
         titleLabel.adjustsFontSizeToFitWidth = true
         titleLabel.textAlignment = .center
         titleLabel.text = "\"\(nflxFilm.title)\""
         
-        ratingLabel = UILabel()
         ratingLabel.translatesAutoresizingMaskIntoConstraints = false
         ratingLabel.font = .systemFont(ofSize: 18, weight: .bold)
         ratingLabel.textAlignment = .center
         ratingLabel.text = omdbFilm?.rated ?? "N/A"
         
-        runtimeLabel = UILabel()
         runtimeLabel.translatesAutoresizingMaskIntoConstraints = false
         runtimeLabel.font = .systemFont(ofSize: 16, weight: .bold)
         runtimeLabel.textAlignment = .left
         runtimeLabel.text = "Runtime"
         
-        durationLabel = UILabel()
         durationLabel.translatesAutoresizingMaskIntoConstraints = false
         durationLabel.font = .systemFont(ofSize: 16, weight: .medium)
         durationLabel.textAlignment = .left
         durationLabel.text = omdbFilm?.runtime ?? "N/A"
         
-        plotLabel = UILabel()
         plotLabel.translatesAutoresizingMaskIntoConstraints = false
         plotLabel.font = .systemFont(ofSize: 14, weight: .medium)
         plotLabel.numberOfLines = 0
         plotLabel.text = "Plot\n\(omdbFilm?.plot ?? "N/A")"
 
-        ctaButton = UIButton(type: .system)
         ctaButton.translatesAutoresizingMaskIntoConstraints = false
         ctaButton.clipsToBounds = true
         ctaButton.tintColor = .systemBackground

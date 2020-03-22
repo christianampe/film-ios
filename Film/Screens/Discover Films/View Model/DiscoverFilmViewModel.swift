@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class DiscoverFilmViewModel: ObservableObject {
+final class DiscoverFilmViewModel {
     deinit {
         cancelLoading()
     }

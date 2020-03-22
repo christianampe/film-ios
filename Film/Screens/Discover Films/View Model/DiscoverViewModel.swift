@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class DiscoverViewModel: ObservableObject {
+final class DiscoverViewModel {
     private let cache = Cache<[(String, [NFLX.Film])]>()
     private var films: [NFLX.Film]
     private var query: String
