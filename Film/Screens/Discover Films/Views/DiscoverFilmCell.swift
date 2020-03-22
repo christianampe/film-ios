@@ -19,9 +19,9 @@ final class DiscoverFilmCell: UICollectionViewCell {
         initialize()
     }
     
-    private var imageView: UIImageView!
-    private var titleContainerView: UIView!
-    private var titleLabel: UILabel!
+    private lazy var imageView = UIImageView()
+    private lazy var titleContainerView = UIView()
+    private lazy var titleLabel = UILabel()
     
     private(set) var viewModel: DiscoverFilmViewModel?
 }
@@ -72,16 +72,13 @@ private extension DiscoverFilmCell {
         layer.masksToBounds = true
         layer.cornerRadius = 6
         
-        imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
         
-        titleContainerView = UIView()
         titleContainerView.translatesAutoresizingMaskIntoConstraints = false
         titleContainerView.backgroundColor = .systemBackground
         titleContainerView.alpha = 0.95
         
-        titleLabel = UILabel()
         titleLabel.backgroundColor = .clear
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.font = .systemFont(ofSize: 10)

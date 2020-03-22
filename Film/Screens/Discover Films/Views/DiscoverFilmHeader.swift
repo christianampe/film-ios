@@ -19,8 +19,8 @@ final class DiscoverFilmHeader: UICollectionReusableView {
         initialize()
     }
     
-    private var titleLabel: UILabel!
-    private var distanceLabel: UILabel!
+    private lazy var titleLabel = UILabel()
+    private lazy var distanceLabel = UILabel()
     
     private(set) var film: NFLX.Film?
 }
@@ -40,11 +40,9 @@ extension DiscoverFilmHeader {
 
 private extension DiscoverFilmHeader {
     func initialize() {
-        titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.font = .systemFont(ofSize: 18, weight: .bold)
         
-        distanceLabel = UILabel()
         distanceLabel.translatesAutoresizingMaskIntoConstraints = false
         distanceLabel.textColor = .secondaryLabel
         distanceLabel.font = .systemFont(ofSize: 14, weight: .medium)

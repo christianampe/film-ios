@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import MapKit
 
 final class DiscoverViewController: UIViewController {
     private let viewModel: DiscoverViewModel
@@ -22,9 +21,9 @@ final class DiscoverViewController: UIViewController {
         super.init(coder: coder)
     }
     
-    private var searchBar: UISearchBar!
-    private var collectionView: UICollectionView!
-    private var collectionViewDataSource: UICollectionViewDiffableDataSource<String, NFLX.Film>!
+    private lazy var searchBar = UISearchBar()
+    private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
+    private lazy var dataSource = collectionViewDataSource()
 }
 
 extension DiscoverViewController {
@@ -55,21 +54,13 @@ extension DiscoverViewController: DiscoverViewModelDelegate {
                 snapshot.appendItems(theatre.1, toSection: theatre.0)
             }
             
-            self.collectionViewDataSource.apply(snapshot,
-                                                animatingDifferences: shouldAnimateDifferences)
+            self.dataSource.apply(snapshot,
+                                  animatingDifferences: shouldAnimateDifferences)
         }
     }
 }
 
 extension DiscoverViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView,
-                        willDisplaySupplementaryView view: UICollectionReusableView,
-                        forElementKind elementKind: String,
-                        at indexPath: IndexPath) {
-        
-        
-    }
-    
     func collectionView(_ collectionView: UICollectionView,
                         didEndDisplaying cell: UICollectionViewCell,
                         forItemAt indexPath: IndexPath) {
@@ -83,8 +74,8 @@ extension DiscoverViewController: UICollectionViewDelegate {
         guard
             let cell = collectionView.cellForItem(at: indexPath) as? DiscoverFilmCell,
             let nflxFilm = cell.viewModel?.nflxFilm
-        else {
-            return
+            else {
+                return
         }
         
         present(FilmDetailViewController(nflxFilm: nflxFilm,
@@ -107,11 +98,37 @@ private extension DiscoverViewController {
         
         view.backgroundColor = .systemBackground
         
-        searchBar = UISearchBar()
         searchBar.tintColor = .systemGray3
         searchBar.placeholder = "Title, actor, director, etc..."
         searchBar.delegate = self
         
+        collectionView.delegate = self
+        collectionView.dataSource = dataSource
+        collectionView.backgroundColor = .clear
+        collectionView.keyboardDismissMode = .interactive
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.registerCollectionViewCell(DiscoverFilmCell.self)
+        collectionView.registerReusableHeaderView(DiscoverFilmHeader.self)
+        
+        navigationItem.titleView = searchBar
+        
+        view.addSubview(collectionView)
+        
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        
+        viewModel.delegate = self
+        viewModel.fetch()
+    }
+}
+
+private extension DiscoverViewController {
+    func collectionViewLayout() -> UICollectionViewCompositionalLayout {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         item.contentInsets = .init(top: 0, leading: 8, bottom: 0, trailing: 0)
@@ -125,18 +142,11 @@ private extension DiscoverViewController {
         section.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary
         let configuration = UICollectionViewCompositionalLayoutConfiguration()
         configuration.interSectionSpacing = 24
-        let layout = UICollectionViewCompositionalLayout(section: section, configuration: configuration)
-        
-        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.delegate = self
-        collectionView.backgroundColor = .clear
-        collectionView.keyboardDismissMode = .interactive
-        collectionView.showsVerticalScrollIndicator = false
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.registerCollectionViewCell(DiscoverFilmCell.self)
-        collectionView.registerReusableHeaderView(DiscoverFilmHeader.self)
-        
-        collectionViewDataSource = .init(collectionView: collectionView) { (collectionView, indexPath, film) in
+        return UICollectionViewCompositionalLayout(section: section, configuration: configuration)
+    }
+    
+    func collectionViewDataSource() -> UICollectionViewDiffableDataSource<String, NFLX.Film> {
+        let collectionViewDataSource = UICollectionViewDiffableDataSource<String, NFLX.Film>(collectionView: collectionView) { (collectionView, indexPath, film) in
             let cell = collectionView.dequeueReusableCell(for: indexPath) as DiscoverFilmCell
             cell.configure(withFilm: film)
             cell.load()
@@ -157,18 +167,6 @@ private extension DiscoverViewController {
             return header
         }
         
-        navigationItem.titleView = searchBar
-        
-        view.addSubview(collectionView)
-        
-        NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-
-        viewModel.delegate = self
-        viewModel.fetch()
+        return collectionViewDataSource
     }
 }
