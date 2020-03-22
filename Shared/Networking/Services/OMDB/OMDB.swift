@@ -17,16 +17,18 @@ extension OMDB {
                      _ completion: @escaping ((Result<Film, Networking.Error>) -> Void)) -> URLSessionDataTask? {
         
         let request = service.request()
-        let key = request.url!.absoluteString
         
-        if let cachedFilm = cache.object(forKey: key) {
+        if let key = request.url?.absoluteString, let cachedFilm = cache.object(forKey: key) {
             completion(.success(cachedFilm))
             return nil
         } else {
             return Networking.object(request, Film.self, .snakeCase) { result in
                 switch result {
                 case .success(let film):
-                    cache.insert(film, forKey: key)
+                    if let key = request.url?.absoluteString {
+                        cache.insert(film, forKey: key)
+                    }
+                    
                     completion(.success(film))
                 case .failure(let error):
                     completion(.failure(error))

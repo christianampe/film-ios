@@ -17,16 +17,18 @@ extension NFLX {
                      _ completion: @escaping ((Result<[Film], Networking.Error>) -> Void)) -> URLSessionDataTask? {
         
         let request = service.request()
-        let key = request.url!.absoluteString
         
-        if let cachedFilms = cache.object(forKey: key) {
+        if let key = request.url?.absoluteString, let cachedFilms = cache.object(forKey: key) {
             completion(.success(cachedFilms))
             return nil
         } else {
             return Networking.object(request, [Film].self, .snakeCase) { result in
                 switch result {
                 case .success(let films):
-                    cache.insert(films, forKey: key)
+                    if let key = request.url?.absoluteString {
+                        cache.insert(films, forKey: key)
+                    }
+                    
                     completion(.success(films))
                 case .failure(let error):
                     completion(.failure(error))
