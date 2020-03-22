@@ -17,7 +17,6 @@
 		5D4DCFDD240F103300D90A32 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4DCFDC240F103300D90A32 /* SceneDelegate.swift */; };
 		5D4DCFE4240F103500D90A32 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D4DCFE3240F103500D90A32 /* Assets.xcassets */; };
 		5D4DCFE7240F103500D90A32 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D4DCFE5240F103500D90A32 /* LaunchScreen.storyboard */; };
-		5D4DCFF3240F106900D90A32 /* Array++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4DCFF1240F106900D90A32 /* Array++.swift */; };
 		5D4DCFF4240F106900D90A32 /* JSONDecoder++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4DCFF2240F106900D90A32 /* JSONDecoder++.swift */; };
 		5D4DD04E240F112D00D90A32 /* NFLX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4DD04B240F112D00D90A32 /* NFLX.swift */; };
 		5D4DD04F240F112D00D90A32 /* NFLXService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4DD04C240F112D00D90A32 /* NFLXService.swift */; };
@@ -54,7 +53,6 @@
 		5D4DCFE3240F103500D90A32 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5D4DCFE6240F103500D90A32 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5D4DCFE8240F103500D90A32 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5D4DCFF1240F106900D90A32 /* Array++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array++.swift"; sourceTree = "<group>"; };
 		5D4DCFF2240F106900D90A32 /* JSONDecoder++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "JSONDecoder++.swift"; sourceTree = "<group>"; };
 		5D4DD04B240F112D00D90A32 /* NFLX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NFLX.swift; sourceTree = "<group>"; };
 		5D4DD04C240F112D00D90A32 /* NFLXService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NFLXService.swift; sourceTree = "<group>"; };
@@ -139,7 +137,6 @@
 		5D4DCFF0240F105700D90A32 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				5D4DCFF1240F106900D90A32 /* Array++.swift */,
 				5D4DCFF2240F106900D90A32 /* JSONDecoder++.swift */,
 				5D4DD068240F148500D90A32 /* UICollectionView++.swift */,
 			);
@@ -379,7 +376,6 @@
 				5D4DD050240F112D00D90A32 /* NFLXFilm.swift in Sources */,
 				5D4DD058240F113D00D90A32 /* Networking.swift in Sources */,
 				5D4B399F241316E200A55BEE /* NetworkingError.swift in Sources */,
-				5D4DCFF3240F106900D90A32 /* Array++.swift in Sources */,
 				5D4DD076240F1B6A00D90A32 /* DiscoverFilmViewModel.swift in Sources */,
 				5D4DD073240F1B6A00D90A32 /* DiscoverViewModel.swift in Sources */,
 				5D4DD04F240F112D00D90A32 /* NFLXService.swift in Sources */,
