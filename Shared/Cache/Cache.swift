@@ -43,9 +43,7 @@ private extension Cache {
         }
         
         switch displayStyle {
-        case .class:
-            return object as AnyObject
-        case .collection:
+        case .class, .collection:
             return object as AnyObject
         case .struct:
             return StructContainer(object: object)
